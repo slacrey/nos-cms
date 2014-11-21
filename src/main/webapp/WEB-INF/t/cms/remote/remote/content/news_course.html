@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>${title} - ${site.name}</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="${content.tagStr!}" http-equiv="keywords"/>
+    <meta content="${content.description!}" http-equiv="description"/>
+    <link rel="stylesheet" type="text/css" href="/${res}/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/${res}/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/${res}/reponsiveslides/responsiveslides.css"/>
+    <link rel="stylesheet" type="text/css" href="/${res}/reponsiveslides/themes.css"/>
+    <!--[if lt IE 9]>
+    <script src="${resSys}/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="${resSys}/jquery.js" type="text/javascript"></script>
+    <script src="${resSys}/front.js" type="text/javascript"></script>
+    <script src="${resSys}/ckplayer/ckplayer.js" type="text/javascript"></script>
+    <script src="${resSys}/ckplayer/offlights.js" type="text/javascript"></script>
+    <script src="/${res}/reponsiveslides/responsiveslides.min.js" type="text/javascript"></script>
+    <!--<script src="${resSys}/jquery.lazyload.js?v=1.8.3" charset="utf-8"></script>-->
+    <script type="text/javascript">
+        $(function () {
+            Cms.attachment("${base}", "${content.id}", "${content.attachments?size}", "attach");
+            Cms.viewCount("${base}", "${content.id}");
+            Cms.siteFlow("${base}", location.href, document.referrer);
+//            $("img").lazyload({
+//                effect : "fadeIn"
+//            });
+            $("#slider4").responsiveSlides({
+                auto: false,
+                pager: false,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks"
+            });
+        });
+    </script>
+</head>
+<body>
+<!-- toper文件 -->
+[#include "../include/top.html"/]
+
+<div class="g-wrap">
+    [#include "../include/head.html"/]
+    [#include "../include/nav.html"/]
+    [#include "../include/location_content.html"/]
+    <!--课程播放-->
+    <div class="g-wrap">
+        <div class="m-bo">
+            <div class="m-headline">
+                <div class="m-video">
+                    <div class="u-videobar fl">
+
+                        [#if content.mediaPath??]
+                        <!--视频放置框-->
+                        <div id="video" class="u-videobar-ing">
+                            <div id="a1"></div>
+                        </div>
+                        <script type="text/javascript">
+                            //函数名称不允许更改 function ckmarqueeadv(){return '广告内容'};
+                            var flashvars = {f: '${content.mediaPath!}', c: 0, b: 1, my_url: '${content.url!}', my_pic: '${content.typeImg!}'};
+                            var params = {bgcolor: '#FFF', allowFullScreen: true, allowScriptAccess: 'always'};
+                            CKobject.embedSWF('${resSys}/ckplayer/ckplayer.swf', 'a1', 'ckplayer_a1', '750', '500', flashvars, params);
+                            var box = new LightBox();
+                            function closelights() {//关灯
+                                box.Show();
+                            }
+                            function openlights() {//开灯
+                                box.Close();
+                            }
+                        </script>
+                        <!--/视频放置框-->
+                        [#else]
+                        [#if pic??]
+                        <div class="callbacks_container">
+                            <ul class="rslides" id="slider4">
+                                [#list content.pictures as p]
+                                <li>
+                                    <!--<img  src="${resSys}/blank.gif"  data-original="${p.imgPath}"/>-->
+                                    <img src="${p.imgPath}" style="height: 500px;"/>
+                                    [#if p.description??]
+                                    <p class="caption">${p.description!}</p>
+                                    [/#if]
+                                </li>
+                                [/#list]
+                            </ul>
+                        </div>
+                        [#else]
+                        <div class="callbacks_container"
+                             style="height: 500px;vertical-align: middle;text-align: center;">
+                            <h2 style="margin-top:20px;">尚未添加图集图片</h2>
+                        </div>
+                        [/#if]
+                        [/#if]
+
+
+                    </div>
+                    <div class="u-videotext fl">
+                        <div class="u-videotext-top">
+                            <div class="uvt-text">
+                                <p id="uvt-text-p"> [#if content.bold]<b>${content.title!''}</b>[#else]${content.title!''}[/#if]:
+                                </p>
+
+                                <p>浏览次数：<span id="views"></span></p>
+                                [#if content.attachments?size gt 0]
+                                [#list content.attachments as attach]
+                                <p><a id="attach${attach_index}">附件下载</a></p>
+                                [/#list]
+                                [/#if]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/课程播放-->
+
+    <div class="g-content">
+        <!--左边(课程介绍，课程提纲)-->
+        <div class="g-content-left fl">
+            <!--课程介绍-->
+            <div class="m-class-introduce">
+                <div class="mci-title">
+                    <h1>课程介绍</h1>
+                    <div class="mci-text">${content.txt!''}</div>
+                </div>
+            </div>
+            <!--课程提纲-->
+            <div class="m-class-outline">
+                <h1>课程列表</h1>
+                [@cms_content_list count='10' titLen='30' append='...' channelId='${channel.id}' orderBy='1' channelOption='1']
+                [#list tag_list as a]
+                <!--章节模块-->
+                <div [#if a_index / 2 == 0] class="mco-section u-odd" [#else] class="mco-section u-odd" [/#if]>
+                <div [#if content??&&content.id==a.id]class="mco-title"[#else]class="mco-title1"[/#if]><a href="${a.url}" title="${a.title}" target="_blank"><p>[@text_cut s=a.title len=titLen append=append/]</p></a></div>
+        </div>
+        [/#list]
+        [/@cms_content_list]
+    </div>
+</div>
+<!--/左边(课程介绍，课程提纲)-->
+<!--右边(授课老师，重点)-->
+<div class="g-content-right fl">
+    <div class="gcr-container">
+        <div class="gcr-title"><p>授课老师</p></div>
+        <div class="gcr-content">
+            [#if content.contentImg??]
+            <img src="${content.contentImg!''}" width="161" height="136" alt="${content.author!'本站编辑'}">
+            [#else]
+            <p style="letter-spacing:2px;line-height: 22px; text-indent: 24px;">姓名：${content.author!''}</p>
+            [/#if]
+            <p style="letter-spacing:2px;line-height: 22px; text-indent: 24px;">${content.description!''}</p>
+        </div>
+        <div class="gcr-title"><p>课程重点</p></div>
+        <div class="gcr-content1">
+            <div class="mci-text">${content.attr.emphasis!''}</div>
+        </div>
+    </div>
+</div>
+<!--/右边(授课老师，重点)-->
+</div>
+</div>
+</div>
+</div>
+
+<!--/内容区-->
+
+
+[#include "../include/tail.html"/]
+</div>
+<!-- /page -->
+[#if user??]
+<script type="text/javascript">
+    $(function () {
+        Cms.collectexist("${base}", "${content.id}", "cancelSpan", "comfirmSpan");
+    });
+</script>
+[/#if]
+</body>
+</html>

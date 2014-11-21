@@ -1,0 +1,16 @@
+<!-- 左边导航 -->
+<div class="m-ywjn-nav fl">
+    <!-- title(上) -->
+    <div class="myn-title"><h3>${channel.parent.title!channel.parent.name}</h3></div>
+    <!-- nav(下) -->
+    <div class="myn-select">
+        <div class="myn-nav">
+            [@cms_channel_list parentId='${channel.parent.id}']
+            [#list tag_list as c]
+            <h3 [#if channel??&&channel.id==c.id] class="up" [/#if]><a href="${c.url}">${c.title!c.name}</a></h3>
+            [/#list]
+            [/@cms_channel_list]
+        </div>
+    </div>
+</div>
+<!-- /左边导航 -->

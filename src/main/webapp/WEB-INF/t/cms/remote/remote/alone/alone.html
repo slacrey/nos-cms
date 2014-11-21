@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>${channel.title!channel.name} - ${site.name}</title>
+    <meta http-equiv="keywords" content="${site.keywords!}"/>
+    <meta http-equiv="description" content="${site.description!}"/>
+    <link href="/${res}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/${res}/css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+[#include "../include/top.html"/]
+<div class="g-wrap">
+    [#include "../include/head.html"/]
+    [#include "../include/nav.html"/]
+
+    [#include "../include/location.html"/]
+
+    <!-- 考试介绍内容 -->
+    <div class="m-ywjn">
+        [#include "../include/leftnav.html"/]
+        <!-- 右边内容 -->
+        <div class="m-ywjn-content fl">
+            <div class="text">
+                <p style="text-align:center;padding-bottom:10px;font-size:14px;">${channel.title!channel.name}</p>
+                <hr/>
+                <div style="padding-top:8px;font-size:12px;line-height:1.8; text-indent:24px;">
+                    ${channel.txt!}
+                </div>
+            </div>
+        </div>
+        <!-- /右边内容 -->
+    </div>
+    <!-- /考试介绍内容 -->
+
+    [#include "../include/tail.html"/]
+</div>
+</body>
+</html>
+</body>
+</html>

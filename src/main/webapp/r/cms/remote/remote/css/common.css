@@ -1,0 +1,34 @@
+html,body,h1,h2,h3,h4,h5,h6,div,ul,ol,li,p,hr,table,caption,th,td,form,input,button{margin:0;padding:0;}
+header,footer{display:block;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+q:before,q:after{content:none;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+a{color:#333;text-decoration:none;}
+body,input,button,select{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
+body{background:#FFF;}
+a:hover{color:#F00;text-decoration:none;}
+.fr{float: right;}
+.fl{float: left;}
+.g-toper{width:100%;height: 34px;background: #F5F5F5;border-bottom: solid 1px #EBEBEB;}
+.m-top{padding: 10px 3px;}
+.u-login li{float: left;padding-right:5px;}
+.g-wrap{width: 1002px;margin: 0  auto;}
+.m-header{width: 100%;height: 90px;}
+.u-logo{width:630px;height:100%;padding-top:4px;padding-left:5px;background: url(../images/logo.png) no-repeat;}
+.m-nav{width: 100%;height:45px;background: url(../images/nav.jpg) no-repeat;border-bottom: solid 1px #BEBCBF;}
+.m-nav ul{padding-left: 15px;}
+.m-nav ul li{float: left;width: 120px;font-size: 14px;line-height: 45px;text-align: center;}
+.m-nav ul li.on{background: url(../images/navh.jpg) left -1px no-repeat;}
+.m-nav ul li.onr{padding-right:30px;float:right;}
+.m-nav ul li.onr a{color:#BC8B2C;}
+.m-nav ul li a{color: #fff;}
+.m-nav ul li a:hover{color:#D0FDFE;}
+.m-loction{width:100%;height: 35px;}
+.m-loctionbar{line-height:20px;padding-left: 15px;padding-top:15px; }
+.m-footer{width:100%;height:50px;background:#C7B199; border-top:5px solid #FFF;border-bottom:1px solid #FFF; float:left;}
+.m-footer-left{padding:3px 0 0 180px;}
+.m-footer-right{padding-top:3px;padding-left:70px;}
+.m-footer-left p, .m-footer-right p{padding:2px 0;}

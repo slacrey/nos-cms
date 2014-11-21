@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>${channel.title!channel.name} - ${site.name}</title>
+    <meta http-equiv="keywords" content="${channel.keywords!}"/>
+    <meta http-equiv="description" content="${channel.description!}"/>
+    <link href="/${res}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/${res}/css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+[#include "../include/top.html"/]
+<div class="g-wrap">
+    [#include "../include/head.html"/]
+    [#include "../include/nav_child.html"/]
+
+    [#include "../include/location.html"/]
+
+    <!-- 考试介绍内容 -->
+    <div class="m-ywjn">
+        [#include "../include/leftnav_child.html"/]
+
+        <!-- 右边内容 -->
+        <div class="m-ywjn-content fl">
+            <div class="text">
+                <h2>${channel.title!channel.name}</h2>
+                [@cms_content_page count='4' siteId='${site.id}' channelId='${channel.id}' sysPage='1' titLen='15' append='...' orderBy='2' dateFormat='yyyy-MM-dd' channelOption='0']
+                [#list tag_pagination.list as a]
+                <ul>
+                    <li class="li-text"><a href="${a.url}" title="${a.title}" target="_blank">[@text_cut s=a.title len=titLen append=append/]</a><span>[${a.date?string(dateFormat)}]</span></li>
+                </ul>
+                [/#list]
+                [/@cms_content_page]
+            </div>
+        </div>
+        <!-- /右边内容 -->
+    </div>
+    <!-- /考试介绍内容 -->
+
+    [#include "../include/tail.html"/]
+</div>
+</body>
+</html>
+</body>
+</html>
