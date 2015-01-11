@@ -42,7 +42,7 @@ $(function() {
 			});
 			$(this).removeClass();
 			$(this).addClass("leftCurr");
-		    $(this).next().show(); 
+		    $(this).next().show();
 		});
 	});
 });
@@ -79,7 +79,10 @@ h3{ padding:0; margin:0; font-weight:normal; font-size:12px;}
 		<@cms_perm url="/scoregroup/v_list.do">
 			<li><a href="../scoregroup/v_list.do" target="rightFrame"><@s.m "cmsScoreGroup.function"/></a></li>
 		</@cms_perm>
-		
+        <@cms_perm url="/reserve/v_list.do">
+        <li><a href="../reserve/v_list.do" target="rightFrame"><@s.m "cms.reserve.function"/></a></li>
+        </@cms_perm>
+
      </ul>
 			<h3><@s.m 'cmsStatic.function'/></h3>
 			<div style="margin:0; padding:0;">

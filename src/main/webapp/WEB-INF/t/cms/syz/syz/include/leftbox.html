@@ -1,0 +1,17 @@
+<div class="m-m-left">
+    <div class="m-nav fl">
+        <div class="u-navg menudiv">
+            <div id="con_one_3" class="onn">
+                <li><a href="${channel.url}">${channel.title!channel.name}</a>
+                    [@cms_channel_list parentId='${channel.id}']
+                    <ul>
+                        [#list tag_list as c]
+                        <li><a href="${c.url}">${c.title!c.name}</a></li>
+                        [/#list]
+                    </ul>
+                    [/@cms_channel_list]
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

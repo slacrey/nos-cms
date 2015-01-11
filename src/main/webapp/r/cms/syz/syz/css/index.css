@@ -1,0 +1,46 @@
+* { margin: 0px; padding:0px; font-family:"Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","黑体",Arial,sans-serif; list-style-type:none; font-size:14px; line-height:20px; }
+.blank10 {width:100%; height:10px; line-height:1px; font-size:1px; clear:both; }
+
+body { background:url(../images/bg.jpg) top repeat-x #F6F6F6; }
+
+.topper {width:1000px; height:200px; margin:0 auto; background:url(../images/topbanner.jpg); }
+.topperdate {width:1000px; height:72px; margin:0 auto; font-size:14px; color:#fff; line-height:40px; background:url(../images/databg.jpg);}
+.wrapper {width:1000px; height:auto; overflow:hidden; margin:0 auto; }
+.wrapper .left {width:652px; height:auto; overflow:hidden; float:left; }
+.wrapper .right {width:332px; height:auto; overflow:hidden; float:right; }
+
+h2 {width:100%; height:43px; background:#F5F5F5; border-bottom:1px solid #E8E8E8;}
+h2 span {width:auto; height:43px; border-bottom:2px solid #FF6600; float:left; margin-left:20px; display:inline; padding:0px 10px; font-size:16px; color:#003366; line-height:43px; }
+
+.wrapper .left .dbsxxz {width:650px; height:280px; float:left; background:url(../images/dbsxxz.jpg) no-repeat 10px 70px #fff;  border:1px solid #E8E8E8;}
+.wrapper .left .dbsxxz ul {width:310px; height:180px; float:left; padding-left:300px; padding-top:20px;  }
+.wrapper .left .dbsxxz ul li {width:310px; height:32px; float:left; background:url(../images/dot1.gif) left center no-repeat; }
+.wrapper .left .dbsxxz ul li a { line-height:32px; font-size:16px; color:#333; padding-left:15px; text-decoration:none; }
+.wrapper .left .dbsxxz ul li a:hover { color:#F00; }
+
+.wrapper .left .dbffyy {width:650px; height:220px; float:left; background:url(../images/dbfwyu.jpg) no-repeat 10px 60px #fff;  border:1px solid #E8E8E8; margin-top:20px; }
+.wrapper .left .dbffyy .dbffyy_from { width:420px; height:120px; float:left; margin-left:200px; display:inline; background:#fff; padding-top:20px;  }
+.wrapper .left .dbffyy .dbffyy_from .dbffyy_input {width:150px; height:30px; border:1px solid #ccc; color:#ccc; line-height:30px; font-size:12px;  }
+.wrapper .left .dbffyy .dbffyy_from .dbffyy_btn {width:auto; height:30px; background:#3F94E9; border:0; border-bottom:2px solid #039; font-size:14px; line-height:30px; color:#fff;  padding:0px 15px; }
+
+.wrapper .left .dbjdcx {width:650px; height:220px; float:left; background:url(../images/dbjdcx.jpg) no-repeat 10px 60px #fff;  border:1px solid #E8E8E8; margin-top:20px; }
+.wrapper .left .dbjdcx .dbjdcx_from { width:350px; height:120px; float:left; margin-left:270px; display:inline; background:#fff; padding-top:20px;  }
+.wrapper .left .dbjdcx .dbjdcx_from .dbjdcx_input {width:200px; height:30px; border:1px solid #ccc; color:#ccc; line-height:30px; font-size:12px;  }
+.wrapper .left .dbjdcx .dbjdcx_from .dbjdcx_btn {width:auto; height:30px; background:#3F94E9; border:0; border-bottom:2px solid #039; font-size:14px; line-height:30px; color:#fff;  padding:0px 15px; }
+
+
+.wrapper .right .zxzxfw {width:330px; height:280px; float:left; background:#fff;  border:1px solid #E8E8E8;}
+.wrapper .right .zxzxfw img {width:326px; height:276px; padding:2px; }
+
+.wrapper .right .bmfwgg {width:330px; height:220px; float:left; background:#fff;  border:1px solid #E8E8E8; margin-top:20px; }
+.wrapper .right .bmfwgg ul{width:280px; height:auto; margin:0 auto; padding-top:10px; }
+.wrapper .right .bmfwgg ul li {width:280px; height:30px; float:left;background:url(../images/dot1.gif) left center no-repeat;  }
+.wrapper .right .bmfwgg ul li a { font-size:14px; line-height:30px; padding-left:15px; color:#666; text-decoration:none; }
+.wrapper .right .bmfwgg ul li a:hover { color:#c00;}
+.wrapper .right .bmfwgg ul li span { float:right; font-size:12px; line-height:30px; color:#CCC; }
+
+.wrapper .right .bmfwwx {width:330px; height:220px; float:left; background:#fff;  border:1px solid #E8E8E8; margin-top:20px; }
+.wrapper .right .bmfwwx .bmfwwxtu {width:290px; height:auto; padding-top:20px; font-size:18px; line-height:35px; color:#666; margin:0 auto; }
+.wrapper .right .bmfwwx .bmfwwxtu img { float:left; padding:10px; }
+
+.footer {width:100%; height:60px; padding-top:10px; border-top:2px solid #069; text-align:center; font-size:14px; color:#999; line-height:25px; margin-top:20px; background:#fff; }

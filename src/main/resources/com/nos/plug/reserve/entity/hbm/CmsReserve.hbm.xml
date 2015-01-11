@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.nos.plug.reserve.entity">
+    <class
+            name="CmsReserve"
+            table="jc_wms_reserve"
+            >
+        <meta attribute="sync-DAO">false</meta>
+        <id
+                name="id"
+                type="integer"
+                column="reserve_id"
+                >
+            <generator class="identity"/>
+        </id>
+
+        <property
+                name="name"
+                column="reserve_name"
+                type="string"
+                not-null="false"
+                length="255"
+                />
+        <property
+                name="phone"
+                column="reserve_phone"
+                type="string"
+                not-null="false"
+                length="255"
+                />
+        <property
+                name="description"
+                column="reserve_description"
+                type="string"
+                not-null="false"
+                length="255"
+                />
+        <property name="ip" column="reserve_ip" type="string" not-null="true" length="50"/>
+        <property name="createTime" column="create_time" type="timestamp" not-null="true" length="19"/>
+        <many-to-one
+                name="site"
+                column="site_id"
+                class="com.nos.core.entity.CmsSite"
+                not-null="true"
+                >
+        </many-to-one>
+        <many-to-one
+                name="user"
+                column="user_id"
+                class="com.nos.core.entity.CmsUser"
+                not-null="false"
+                >
+        </many-to-one>
+
+
+    </class>
+</hibernate-mapping>
