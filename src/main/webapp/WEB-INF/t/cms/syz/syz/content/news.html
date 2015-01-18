@@ -53,6 +53,11 @@
                         [#else]
                         ${txt!}
                         [/#if]
+                        [#if content.attachments?size gt 0]
+                        [#list content.attachments as attach]
+                        <p><a id="attach${attach_index}">附件下载</a></p>
+                        [/#list]
+                        [/#if]
                     </div>
                     <div class="pagebar">[#include "../style_page/content.html"/]</div>
                 </div>
