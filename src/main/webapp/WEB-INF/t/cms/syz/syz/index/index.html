@@ -30,7 +30,11 @@
     
         <!--代办事项须知-->
         <div class="dbsxxz">
-            <h2><span>代办事项须知</span></h2>
+            <h2>
+                [@cms_channel id='128']
+                <span><a style="text-decoration:none;" href="${tag_bean.url}" target="_blank">${tag_bean.name}</a></span>
+                [/@cms_channel]
+            </h2>
             <ul>
                 [@cms_content_list count='12' titLen='12' orderBy='2' dateFormat='MM/dd' channelOption='1' channelId='128']
                 [#list tag_list as a]
