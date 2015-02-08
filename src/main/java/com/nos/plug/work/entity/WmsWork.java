@@ -1,0 +1,1 @@
+package com.nos.plug.work.entity;import com.nos.plug.work.entity.base.BaseWmsWork;public class WmsWork extends BaseWmsWork {    public WmsWork() {    }    public WmsWork(Long id) {        super(id);    }}

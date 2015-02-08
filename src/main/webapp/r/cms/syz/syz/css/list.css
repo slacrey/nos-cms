@@ -6,9 +6,12 @@ body { background:url(../images/bg.jpg) top repeat-x #F6F6F6; }
 .topper {width:1000px; height:200px; margin:0 auto; background:url(../images/topbanner.jpg); }
 .topperdate {width:1000px; height:72px; margin:0 auto; font-size:14px; color:#fff; line-height:40px; background:url(../images/databg.jpg);}
 
+
+
 h2 {width:100%; height:43px; background:#F5F5F5; border-bottom:1px solid #E8E8E8;}
 h2 span {width:auto; height:43px; border-bottom:2px solid #FF6600; float:left; margin-left:20px; display:inline; padding:0px 10px; font-size:16px; color:#003366; line-height:43px; }
-
+h2 a {display:block; width:auto; height:auto; float:right; margin:8px; background:#fff; border:1px solid #ccc; font-size:12px; color:#999; padding:3px 10px; text-decoration:none; font-weight:normal;}
+h2 a:hover { background:#ccc; color:#fff; }
 .guide {width:980px; height:30px; line-height:12px; color:#666; margin:0 auto; background:url(../images/gohome.gif) left top no-repeat; padding-left:20px; }
 .wrapper {width:1000px; height:auto; overflow:hidden; margin:0 auto; }
 .wrapper .left {width:652px; height:auto; overflow:hidden; float:left; }
@@ -22,11 +25,12 @@ h2 span {width:auto; height:43px; border-bottom:2px solid #FF6600; float:left; m
 .wrapper .left .content .list  ul li a:hover { color:#C00;}
 .wrapper .left .content .list  ul li span { float:right; font-size:12px; line-height:35px; color:#CCC;}
 
-.wrapper .left .content .page {width:300px; height:40px; padding:20px; margin:0 auto; clear:both; text-align:center;}
+.wrapper .left .content .page {width:400px; height:40px; padding:20px; margin:0 auto; clear:both; text-align:center;}
 .wrapper .left .content .page ul { text-align:center; }
 .wrapper .left .content .page li {display:inline; }
 .wrapper .left .content .page li a { display:block; font-size:12px; padding:5px 5px; text-align:center; border:1px solid #ddd; background:#F9F9F9; width:auto; margin:0px 5px; float:left;text-decoration:none; color:#666;}
 .wrapper .left .content .page li a:hover { display:block; font-size:12px; padding:5px 5px; text-align:center; border:1px solid #06c; background:#06c; width:auto; margin:0px 5px; float:left;text-decoration:none; color:#fff;}
+
 
 .wrapper .right .zxzxfw {width:330px; height:280px; float:left; background:#fff;  border:1px solid #E8E8E8;}
 .wrapper .right .zxzxfw img {width:326px; height:276px; padding:2px; }

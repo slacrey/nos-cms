@@ -20,6 +20,7 @@
         <compiler.plugin.version>3.1</compiler.plugin.version>
         <resources.plugin.version>2.6</resources.plugin.version>
         <source.plugin.version>2.2.1</source.plugin.version>
+        <jackson.version>2.2.1</jackson.version>
     </properties>
 	
 	<repositories>
@@ -155,6 +156,19 @@
     </build>
 
     <dependencies>
+
+        <!-- jackson json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

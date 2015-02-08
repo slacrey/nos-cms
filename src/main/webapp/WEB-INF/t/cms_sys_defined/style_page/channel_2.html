@@ -6,6 +6,7 @@ pageStyle: 翻页DIV style
 --]
 [#assign p=tag_pagination/]
 <div [#if pageClass??] class="${pageClass}"[/#if][#if pageStyle??] style="${pageStyle}"[/#if]>
+<li><a disabled="disabled">共${p.totalCount}条记录 ${p.pageNo}/${p.totalPage}页</a></li>
 [#if p.firstPage]
 <li>&nbsp;<a disabled="disabled">首页</a></li>
 <li><a disabled="disabled">上一页</a></li>[#t/]

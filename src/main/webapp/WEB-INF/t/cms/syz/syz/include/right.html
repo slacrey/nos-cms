@@ -13,7 +13,9 @@
 
     <!--便民服务公告-->
     <div class="bmfwgg">
-        <h2><span>便民服务公告</span></h2>
+        [@cms_channel id='129']
+        <h2><a  style="text-decoration:none;" href="${tag_bean.url}" target="_blank">+更多</a><span>${tag_bean.name}</span></h2>
+        [/@cms_channel]
         <ul>
             [@cms_content_list count='5' titLen='12' orderBy='2' dateFormat='MM/dd' channelOption='1' channelId='129']
             [#list tag_list as a]

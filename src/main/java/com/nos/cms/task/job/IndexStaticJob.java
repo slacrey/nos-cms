@@ -26,7 +26,7 @@ import freemarker.template.TemplateException;
  * @Description 首页静态化的job类
  * @author slacrey
  */
-public class IndexStaticJob extends QuartzJobBean{
+public class IndexStaticJob extends QuartzJobBean {
 	private static final Logger log = LoggerFactory.getLogger(IndexStaticJob.class);
 	protected void executeInternal(JobExecutionContext context)throws JobExecutionException {
     try {  

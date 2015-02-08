@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+
+    <bean id="cms_work_list" class="com.nos.plug.work.action.directive.CmsWorkListDirective"/>
+
+	<bean id="wmsWorkMng" class="com.nos.plug.work.manager.impl.WmsWorkMngImpl">
+        <property name="dao" ref="wmsWorkDao"/>
+	</bean>
+	<bean id="wmsWorkDao" class="com.nos.plug.work.dao.impl.WmsWorkDaoImpl"/>
+
+    <bean id="wmsWorkProgressMng" class="com.nos.plug.work.manager.impl.WmsWorkProgressMngImpl">
+        <property name="dao" ref="wmsWorkProgressDao"/>
+    </bean>
+    <bean id="wmsWorkProgressDao" class="com.nos.plug.work.dao.impl.WmsWorkProgressDaoImpl"/>
+
+</beans>
