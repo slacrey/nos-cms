@@ -151,8 +151,7 @@ public abstract class BaseWmsWorkProgress implements Serializable {
         if (!(obj instanceof WmsWorkProgress)) return false;
 
         WmsWorkProgress cmsTest = (WmsWorkProgress) obj;
-        if ((getId() == null) || (cmsTest.getId() == null)) return false;
-        return getId().equals(cmsTest.getId());
+        return !((getId() == null) || (cmsTest.getId() == null)) && getId().equals(cmsTest.getId());
     }
 
     public int hashCode() {

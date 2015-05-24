@@ -40,6 +40,11 @@ public class WmsWorkMngImpl implements WmsWorkMng {
     }
 
     @Override
+    public List<WmsWork> findByPhone(int count, String phone, String idNumber) {
+        return this.dao.findByPhone(count, phone, idNumber);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public WmsWork findById(Long id) {
         return dao.findById(id);

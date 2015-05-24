@@ -15,6 +15,8 @@ public abstract interface WmsWorkDao {
 
     public abstract List<WmsWork> findByPhone(int count, String phone);
 
+    public abstract List<WmsWork> findByPhone(int count, String phone, String idNumber);
+
     public abstract WmsWork save(WmsWork paramCmsTest);
 
     public abstract WmsWork updateByUpdater(Updater<WmsWork> paramUpdater);

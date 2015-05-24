@@ -50,6 +50,15 @@ public class WmsWorkDaoImpl extends HibernateBaseDao<WmsWork, Long> implements W
     }
 
     @Override
+    public List<WmsWork> findByPhone(int count, String phone, String idNumber) {
+        Finder finder = Finder.create("from WmsWork w where w.litigantPhone=:litigantPhone and w.litigantId like :litigantId and w.status != 0 ");
+        finder.setParam("litigantPhone", phone);
+        finder.setParam("litigantId", "%" + idNumber);
+        finder.setMaxResults(count);
+        return find(finder);
+    }
+
+    @Override
     public WmsWork save(WmsWork bean) {
         getSession().save(bean);
         return bean;

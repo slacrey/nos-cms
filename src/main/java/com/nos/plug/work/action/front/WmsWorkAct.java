@@ -63,13 +63,14 @@ public class WmsWorkAct {
     }
 
     @RequestMapping(value = "/work/query.jspx", method = RequestMethod.POST)
-    public void queryWorkProgress(String phone, HttpServletResponse response) throws JSONException{
+    public void queryWorkProgress(String phone, String idNumber, HttpServletResponse response) throws JSONException{
 
 
         JSONObject json = new JSONObject();
-        if (StringUtils.isNotBlank(phone)) {
+        if (StringUtils.isNotBlank(phone) && StringUtils.isNotBlank(idNumber)) {
 
-            List<WmsWork> works = wmsWorkMng.findByPhone(100, phone);
+
+            List<WmsWork> works = wmsWorkMng.findByPhone(100, phone, idNumber);
             if (works != null && !works.isEmpty()) {
                 for (WmsWork wmsWork: works) {
                     if (wmsWork != null) {

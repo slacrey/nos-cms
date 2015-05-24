@@ -12,6 +12,8 @@ public abstract interface WmsWorkMng {
 
     public abstract List<WmsWork> findByPhone(int count, String phone);
 
+    public abstract List<WmsWork> findByPhone(int count, String phone, String idNumber);
+
     public abstract WmsWork findById(Long id);
 
     public abstract WmsWork save(WmsWork bean);

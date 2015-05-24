@@ -17,6 +17,7 @@ public abstract class BaseWmsWork implements Serializable {
     public static String PROP_ID = "id";
     public static String PROP_LITIGANT = "litigant";
     public static String PROP_LITIGANT_PHONE = "litigantPhone";
+    public static String PROP_LITIGANT_ID = "litigantId";
     public static String PROP_TITLE = "title";
     public static String PROP_STATUS = "status";
     public static String PROP_PRINCIPAL_ID = "principalId";
@@ -44,6 +45,7 @@ public abstract class BaseWmsWork implements Serializable {
     private Long id;//编号
     private String litigant;//当事人
     private String litigantPhone;//当事人
+    private String litigantId;//当事人
     private String title;//工作标题
     private Integer status;//状态
     private Long principalId;//负责人
@@ -285,6 +287,14 @@ public abstract class BaseWmsWork implements Serializable {
 
     public void setWorkProgresses(List<WmsWorkProgress> workProgresses) {
         this.workProgresses = workProgresses;
+    }
+
+    public String getLitigantId() {
+        return litigantId;
+    }
+
+    public void setLitigantId(String litigantId) {
+        this.litigantId = litigantId;
     }
 
     public boolean equals(Object obj) {

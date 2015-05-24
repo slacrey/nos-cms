@@ -32,6 +32,13 @@
                 length="255"
                 />
         <property
+                name="litigantId"
+                column="litigant_id"
+                type="string"
+                not-null="false"
+                length="100"
+                />
+        <property
                 name="title"
                 column="title"
                 type="string"

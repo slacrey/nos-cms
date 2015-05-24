@@ -23,15 +23,17 @@
 
             $("#begin_query").on('click', function(){
                 var phone = $('#query_phone').val();
-                if (phone == '') {
-                    alert("请输入手机号");
+                var idNumber = $('#id_number_phone').val();
+                if (phone == '' || idNumber == '') {
+                    alert("请输入手机号和身份证后6位");
                 }
                 var postUrl = '${base}/work/query.jspx';
                 $.ajax({
                     type: 'POST',
                     url: postUrl ,
                     data: {
-                        'phone':phone
+                        'phone':phone,
+                        'idNumber':idNumber
                     } ,
                     dataType: 'json',
                     success: function(result){
