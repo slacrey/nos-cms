@@ -1,35 +1,54 @@
-<div class="theTop">
-	<div class="theTopLeft">
-    [#include "../include/header_register.html"/]
-    </div>
-    <div class="theTopRight">
-    <a href="${base}/tag.jspx" target="_blank">Tags</a>&nbsp;|&nbsp;<a href="${base}/guestbook.jspx" target="_blank">留言板</a>&nbsp;|&nbsp;<a href="${base}/rss.jspx" target="_blank">RSS订阅</a>&nbsp;|&nbsp;<a onclick="SetHome(window.location)"href="javascript:void(0)">设为首页</a>&nbsp;|&nbsp;<a onclick="AddFavorite(window.location,document.title)"href="javascript:void(0)">加入收藏</a>&nbsp;
-    <A name="gb2big5" id="gb2big5">繁體中文</A>
-	<Script Language=Javascript Src="${resSys}/gb2big5.js"></Script>
-    </div>
-</div>
-<script type="text/javascript" language="javascript">
-   //加入收藏
-       function AddFavorite(sURL, sTitle) {
-           sURL =encodeURI(sURL); 
-       try{   
-          window.external.addFavorite(sURL, sTitle);   
-       }catch(e) {   
-          try{   
-              window.sidebar.addPanel(sTitle, sURL, "");   
-           }catch (e){   
-              alert("您的浏览器不支持自动加入收藏功能，请使用Ctrl+D进行添加，或手动在浏览器里进行设置！");
-          }   
-       }
-   }
-   
-   //设为首页
-   function SetHome(url){
-       if (document.all) {
-          document.body.style.behavior='url(#default#homepage)';
-             document.body.setHomePage(url);
-       }else{
-           alert("您的浏览器不支持自动设置页面为首页功能，请您手动在浏览器里设置该页面为首页！");
-       }
-   }
+<link rel="stylesheet" type="text/css" href="/${res}/css/login.css" />
+<script>
+function qkeypress(){
+	var q=$("input[name=q]");
+	if(q.val().trim()!=""){
+		$("input[name=q]").autocomplete("enable");
+	}else{
+		$("input[name=q]").autocomplete("disable");
+	}
+}
+function query(){
+	$.post("${base}/createToken.jspx", {}, function(data) {
+		$("#token").val(data.token);
+		$("#searchForm").submit();
+	}, "json");
+}
+$(function() {
+	$("input[name='q']").bind('keypress',function(event){
+	    if(event.keyCode == 13)     
+	    {  
+	    	event.preventDefault();
+	    	query();
+	    }  
+	});
+});
 </script>
+<header class="header rel">
+  <div class="header-jf"><a class="jf-btn" name="gb2big5" id="gb2big5">繁</a></div>
+  <Script Language=Javascript Src="${resSys}/gb2big5.js"></Script>
+  <div class="header-rss"><a class="rss-btn" href="${base}/rss.jspx" target="_blank" title="RSS订阅">RSS</a></div>
+  <div class="header-tag"><a class="tag-btn" href="${base}/tag.jspx" target="_blank" title="Tags标签">Tags</a></div>
+  <div class="container clearfix">
+    <a class="logo" href="${base}/"></a>
+    [#include "../include/nav.html"]
+    <div class="header-r">     
+      <div class="search">
+        <form action="${base}/search.jspx" target="_blank" name="searchForm" id="searchForm">
+        <input type="text" name="q" value="${oldq!}"   maxlength="50" autocomplete="off" class="searchCon" style="width:202px;">
+        <input type="hidden" name="token" id="token" value="${token!}" />
+        <input type="button" value="" class="searchMenu" onclick="query()" >
+        </form>
+      </div>      
+      <div id="loginCsiDiv" style="float:left;"></div>
+	  <script type="text/javascript">
+		$(function(){
+			[#if site.config.ssoEnable]
+			Cms.loginSSO('${base}');
+			[/#if]
+			Cms.loginCsi("${base}","loginCsiDiv",{"returnUrl":"${location}"});
+		});
+	   </script>
+    </div> 
+  </div>
+</header>

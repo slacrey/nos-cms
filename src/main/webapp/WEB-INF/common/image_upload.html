@@ -34,17 +34,19 @@ function imgCut(n) {
 	}
 	var url = "../common/v_image_area_select.do?uploadNum="+n+"&imgSrcPath="
 		+$("#uploadImgPath"+n).val()+"&zoomWidth="+$("#zoomWidth"+n).val()+"&zoomHeight="+$("#zoomHeight"+n).val();
-	window.open(url,"imgcut","height=550, width=1000, top=0, left=0, toolbar=no, menubar=no, scrollbars=auto, resizable=yes,location=no, status=no");
+	window.open(url,"imgcut","height=550, width=1000, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no");
 }
 //预览图片
 function previewImg(n) {
 	var img = $("#uploadImgPath"+n).val();
 	if(img!="") {
+		var imgUrl="";
 		if(img.indexOf("?")==-1) {
-			$("#preImg"+n).attr("src",img+"?d="+new Date()*1);
+			imgUrl=img+"?d="+new Date().getTime();
 		} else {
-			$("#preImg"+n).attr("src",img+"&d="+new Date()*1);
+			imgUrl=img+"&d="+new Date().getTime();
 		}
+		$("#preImg"+n).attr("src",imgUrl);
 		if(!$("#preImg"+n).attr("noResize")) {
 			$("#preImg"+n).css("width","auto");
 			$("#preImg"+n).css("height","auto");

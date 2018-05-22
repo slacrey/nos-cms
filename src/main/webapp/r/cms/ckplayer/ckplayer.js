@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------
   说明:
   正式使用时可以把该文件的注释全部去掉，节省加载时间
-  ckplayer6.5,有问题请访问http://www.ckplayer.com
+  ckplayer6.8,有问题请访问http://www.ckplayer.com
   请注意，该文件为UTF-8编码，不需要改变编码即可使用于各种编码形式的网站内	
 -------------------------------------------------------------------------
 第一部分，加载插件
@@ -20,9 +20,6 @@
 */
 function ckcpt() {
     var cpt = '';
-    cpt += 'right.swf,2,1,0,0,2,0|'; //右边开关灯，调整，分享按钮的插件
-    cpt += 'share.swf,1,1,-180,-100,3,0|'; //分享插件
-    cpt += 'adjustment.swf,1,1,-180,-100,3,0|'; //调整大小和颜色的插件
     return cpt;
 }
 /*
@@ -42,9 +39,9 @@ function ckstyle() { //定义总的风格
         flashvars: '',
         /*
 		这里是用来做为对flashvars值的补充，除了c和x二个参数以外的设置都可以在这里进行配置
-		                          1 1 1 1   1 1 1 1 1 1 2 2 2  2 2 2 2 2    2 2 3 3 3 3 3 3 3 3 3   3 4
-       			1 2 3 4 5 6 7 8 9 0 1 2 3   4 5 6 7 8 9 0 1 2  3 4 5 6 7    8 9 0 1 2 3 4 5 6 7 8   9 0*/
-        setup: '1,1,1,1,1,2,0,1,2,0,0,1,200,0,2,1,0,1,1,1,2,10,3,0,1,2,3000,0,0,0,0,1,1,1,1,1,1,250,0,90',
+		                          1 1 1 1   1 1 1 1 1 1 2 2 2  2 2 2 2 2    2 2 3 3 3 3 3 3 3 3 3   3 4  4 4 4
+       			1 2 3 4 5 6 7 8 9 0 1 2 3   4 5 6 7 8 9 0 1 2  3 4 5 6 7    8 9 0 1 2 3 4 5 6 7 8   9 0  1 2 3*/
+        setup: '1,1,1,1,1,2,0,1,2,0,0,1,200,0,2,1,0,1,1,1,1,10,3,0,1,2,3000,0,0,0,0,1,1,1,1,1,1,250,0,90,0,0,0',
         /*
 		这是配置文件里比较重要的一个参数，共有N个功能控制参数，并且以后会继续的增加，各控制参数以英文逗号(,)隔开。下面列出各参数的说明：
 			1、鼠标经过按钮是否使用手型，0普通鼠标，1手型鼠标，2是只有按钮手型，3是控制栏手型
@@ -53,48 +50,48 @@ function ckstyle() { //定义总的风格
 			4、在播放前置广告时是否同时加载视频，0不加载，1加载
 			5、广告显示的参考对象，0是参考视频区域，1是参考播放器区域
 			6、广告大小的调整方式,只针对swf和图片有效,视频是自动缩放的
-				=0是自动调整大小，意思是说大的话就变小，小的话就变大
-				=1是大的化变小，小的话不变
-				=2是什么也不变，就这么大
-				=3是跟参考对像(第5个控制)参数设置的一样宽高
+				0=自动调整大小，意思是说大的话就变小，小的话就变大
+				1=是大的化变小，小的话不变
+				2=是什么也不变，就这么大
+				3=是跟参考对像(第5个控制)参数设置的一样宽高
 			7、前置广告播放顺序，0是顺序播放，1是随机播放，>1则随机取所有广告中的(N-1)个进行播放
 			8、对于视频广告是否采用修正，0是不使用，1是使用，如果是1，则用户在网速慢的情况下会按设定的倒计时进行播放广告，计时结束则放正片（比较人性化），设置成0的话，则强制播放完广告才能播放正片
 			9、是否开启滚动文字广告，0是不开启，1是开启且不使用关闭按钮，2是开启并且使用关闭按钮，开启后将在加载视频的时候加载滚动文字广告
 			10、视频的调整方式
-				=0是自动调整大小，意思是说大的话就变小，小的话就变大，同时保持长宽比例不变
-				=1是大的化变小，小的话不变
-				=2是什么也不变，就这么大
-				=3是跟参考对像(pm_video的设置)参数设置的一样宽高
+				0=是自动调整大小，意思是说大的话就变小，小的话就变大，同时保持长宽比例不变
+				1=是大的化变小，小的话不变
+				2=是什么也不变，就这么大
+				3=是跟参考对像(pm_video的设置)参数设置的一样宽高
 			11、是否在多视频时分段加载，0不是，1是
 			12、缩放视频时是否进行平滑处理，0不是，1是
 			13、视频缓冲时间,单位：毫秒,建议不超过300
 			14、初始图片调整方式(
-				=0是自动调整大小，意思是说大的话就变小，小的话就变大，同时保持长宽比例不变
-				=1是大的化变小，小的话不变
-				=2是什么也不变，就这么大
-				=3是跟pm_video参数设置的一样宽高
+				0=是自动调整大小，意思是说大的话就变小，小的话就变大，同时保持长宽比例不变
+				1=是大的化变小，小的话不变
+				2=是什么也不变，就这么大
+				3=是跟pm_video参数设置的一样宽高
 			15、暂停广告调整方式(
-				=0是自动调整大小，意思是说大的话就变小，小的话就变大，同时保持长宽比例不变
-				=1是大的化变小，小的话不变
-				=2是什么也不变，就这么大
-				=3是跟pm_video参数设置的一样宽
+				0=是自动调整大小，意思是说大的话就变小，小的话就变大，同时保持长宽比例不变
+				1=是大的化变小，小的话不变
+				2=是什么也不变，就这么大
+				3=是跟pm_video参数设置的一样宽
 			16、暂停广告是否使用关闭广告设置，0不使用，1使用
 			17、缓冲时是否播放广告，0是不显示，1是显示并同时隐藏掉缓冲图标和进度，2是显示并不隐藏缓冲图标
 			18、是否支持键盘空格键控制播放和暂停0不支持，1支持
 			19、是否支持键盘左右方向键控制快进快退0不支持，1支持
 			20、是否支持键盘上下方向键控制音量0不支持，1支持
-			21、播放器返回js交互函数的等级，0-2,等级越高，返回的参数越多
-				0是返回少量常用交互
-				1返回播放器在播放的时候的参数，不返回广告之类的参数
-				2返回全部参数
-				3返回全部参数，并且在参数前加上"播放器ID->"，用于多播放器的监听
+			21、播放器返回js全部监听函数的等级，0-2,等级越高，返回的参数越多
+				0=不返回全部监听事件
+				1=返回监听，但不在控制台输出
+				2=返回监听，并且在控制台同步输出
+				3=返回全部监听事件，并且在参数前加上"播放器ID->"，用于多播放器的监听
 			22、快进和快退的秒数
 			23、界面上图片元素加载失败重新加载次数
 			24、开启加载皮肤压缩文件包的加载进度提示
 			25、使用隐藏控制栏时显示简单进度条的功能,0是不使用，1是使用，2是只在普通状态下使用
 			26、控制栏隐藏设置(0不隐藏，1全屏时隐藏，2都隐藏
 			27、控制栏隐藏延时时间，即在鼠标离开控制栏后多少毫秒后隐藏控制栏
-			28、左右滚动时是否采用无缝，默认0采用，1是不采用
+			28、滚动文字广告左右滚动时是否采用无缝，默认0采用，1是不采用
 			29、0是正常状态，1是控制栏默认隐藏，播放状态下鼠标经过播放器显示控制栏，2是一直隐藏控制栏
 			30、在播放rtmp视频时暂停后点击播放是否采用重新链接的方式,这里一共分0-2三个等级
 			31、当采用网址形式(flashvars里s=1/2时)读取视频地址时是采用默认0=get方法，1=post方式
@@ -102,11 +99,14 @@ function ckstyle() { //定义总的风格
 			33、是否启用中间暂停按钮
 			34、是否启用静音按钮
 			35、是否启用全屏按钮
-			36、是否启用进度调节栏
+			36、是否启用进度调节栏,0不启用，1是启用，2是只能前进（向右拖动），3是只能后退，4是只能前进但能回到第一次拖动时的位置，5是看过的地方可以随意拖动，
 			37、是否启用调节音量
 			38、计算时间的间隔，毫秒
 			39、前置logo至少显示的时间，单位：毫秒
 			40、前置视频广告的默认音量
+			41、当s=3/4时加载插件是否从压缩包里加载，0不是，1是
+			42、加载风格是否采用加密方式传送，该功能普通用户不能使用
+			43、在s=1/2时，调用地址里的地址是否是相对地址（相对于调用文件），0不是，1是
 		*/
         pm_bg: '0x000000,100,230,180',
         /*播放器整体的背景配置，请注意，这里只是一个初始化的设置，如果需要真正的改动播放器的背景和最小宽高，需要在风格文件里找到相同的参数进行更改。
@@ -116,24 +116,22 @@ function ckstyle() { //定义总的风格
 		4、播放器最小高度
 		这里只是初始化时的设置，最终加载完播放器后显示的效果需要在style.swf/style.xml里设置该参数
 		*/
-        mylogo: 'null',
-//        mylogo: 'logo.swf',
+        mylogo: 'logo.swf',
         /*
-		视频加载前显示的logo文件，不使用设置成null，即ck.mylogo='null';
+		视频加载前显示的logo文件，不使用设置成null，即mylogo='null';
 		*/
         pm_mylogo: '1,1,-100,-55',
         /*
 		视频加载前显示的logo文件(mylogo参数的)的位置
 		本软件所有的四个参数控制位置的方式全部都是统一的意思，如下
-			1、水平对齐方式，0是左，1是中，2是右
-			2、垂直对齐方式，0是上，1是中，2是下
-			3、水平偏移量，举例说明，如果第1个参数设置成0左对齐，第3个偏移量设置成10，就是离左边10个像素，第一个参数设置成2，偏移量如果设置的是正值就会移到播放器外面，只有设置成负值才行，设置成-1，按钮就会跑到播放器外面
-			4、垂直偏移量 
+		1、水平对齐方式，0是左，1是中，2是右
+		2、垂直对齐方式，0是上，1是中，2是下
+		3、水平偏移量，举例说明，如果第1个参数设置成0左对齐，第3个偏移量设置成10，就是离左边10个像素，第一个参数设置成2，偏移量如果设置的是正值就会移到播放器外面，只有设置成负值才行，设置成-1，按钮就会跑到播放器外面
+		4、垂直偏移量 
 		*/
-        logo: 'null',
-//        logo: 'cklogo.png',
+        logo: 'cklogo.png',
         /*
-		默认右上角一直显示的logo，不使用设置成null，即ck.logo='null';
+		默认右上角一直显示的logo，不使用设置成null，即logo='null';
 		*/
         pm_logo: '2,0,-100,20',
         /*
@@ -201,7 +199,7 @@ function ckstyle() { //定义总的风格
 			5、水平偏移量
 			6、垂直偏移量
 		*/
-        pm_padvc: '2,0,-10,-10',
+        pm_padvc: '2,0,-13,-13',
         /*
 		暂停广告的关闭按钮的位置
 			1、水平对齐方式
@@ -209,7 +207,7 @@ function ckstyle() { //定义总的风格
 			3、水平偏移量
 			4、垂直偏移量
 		*/
-        pm_advms: '2,2,-46,-56',
+        pm_advms: '2,2,-46,-67',
         /*
 		滚动广告关闭按钮位置
 			1、水平对齐方式
@@ -229,7 +227,7 @@ function ckstyle() { //定义总的风格
 			7、文本框高度
 		*/
         //pm_advmarquee: '1,2,50,-60,50,18,0,0x000000,50,0,20,1,15,2000',
-		pm_advmarquee: '1,2,50,-60,50,20,0,0x000000,50,0,20,1,30,2000',
+		pm_advmarquee: '1,2,50,-70,50,20,0,0x000000,50,0,20,1,30,2000',
         /*
 		滚动广告的控制，要使用的话需要在setup里的第9个参数设置成1
 		这里分二种情况,前六个参数是定位控制，第7个参数是设置定位方式(0：相对定位，1：绝对定位)
@@ -259,18 +257,19 @@ function ckstyle() { //定义总的风格
 			14、控制向上或向下滚动时每次停止的时间
 		*/
 		pm_glowfilter:'1,0x01485d, 100, 6, 3, 10, 1, 0, 0',
-		/*滚动文字广告是否采用发光滤镜
+		/*
+		滚动文字广告是否采用发光滤镜
 			1、是否使用发光滤镜，0是不采用，1是使用
 			2、(default = 0xFF0000) — 光晕颜色，采用十六进制格式 0xRRGGBB。 默认值为 0xFF0000  
 			3、(default = 100) — 颜色的 Alpha 透明度值。 有效值为 0 到 100。 例如，25 设置透明度为 25%
 			4、(default = 6.0) — 水平模糊量。 有效值为 0 到 255（浮点）。 2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其它值更快  
 			5、(default = 6.0) — 垂直模糊量。 有效值为 0 到 255（浮点）。 2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其它值更快  
-			6、(default = 2) — 印记或跨页的强度。 该值越高，压印的颜色越深，而且发光与背景之间的对比度也越强。 有效值为 0 到 255  
+			6、(default = 2) —光晕的强度。 该值越高，光晕的颜色越深，而且发光与背景之间的对比度也越强。 有效值为 0 到 255  
 			7、(default = 1) — 应用滤镜的次数
 			8、(default = 0) — 指定发光是否为内侧发光。 值 1 指定发光是内侧发光。 值 0 指定发光是外侧发光（对象外缘周围的发光）  
 			9、(default = 0) — 指定对象是否具有挖空效果。 值为 1 将使对象的填充变为透明，并显示文档的背景颜色 
 		*/
-        advmarquee: escape('{a href="http://www.ckplayer.com"}{font color="#FFFFFF" size="12"}这里可以放文字广告，播放器默认使用这里设置的广告内容，如果不想在这里使用可以清空这里的内容，如果想在页面中实时定义滚动文字广告内容，可以清空这里的内容，然后在页面中设置广告函数。{/font}{/a}'),
+        advmarquee: escape(''),
         /*
 		该处是滚动文字广告的内容，如果不想在这里设置，就把这里清空并且在页面中使用js的函数定义function ckmarqueeadv(){return '广告内容'}
 		*/
@@ -284,7 +283,10 @@ function ckstyle() { //定义总的风格
 		*/
 		calljs:'ckplayer_status,ckadjump,playerstop,ckmarqueeadv',
 		/*
-			跳过广告和播放结束时调用的js函数
+			1、全局监听返回结果的函数
+			2、跳过广告的函数
+			3、播放结束时调用的js函数
+			4、加载滚动文字广告的函
 		*/
         myweb: escape(''),
         /*
@@ -296,11 +298,11 @@ function ckstyle() { //定义总的风格
 		*/
         cpt_lights: '1',
 		/*
-		该处定义是否使用开关灯，和right.swf插件配合作用,使用开灯效果时调用页面的js函数function closelights(){};
+		该处定义是否使用开关灯，使用开灯效果时调用页面的js函数function closelights(){}，关灯调用 function closelights(){};
 		*/
-        cpt_share:'/r/cms/ckplayer/share.xml',
+        cpt_share: '../r/cms/ckplayer/share.xml',
         /*
-		分享插件调用的配置文件地址
+		分享插件调用的配置文件地址,此设设置成空，则不启用分享按钮
 		调用插件开始
 		*/
         cpt_list: ckcpt()
@@ -550,7 +552,7 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
         },
 		getX: function(){
 			var f='ckstyle()';
-			if (this.getVars('x')) {
+			if (this.getVars('x') && parseInt(this.getVars('c'))!=1 ) {
 				f=this.getVars('x')+'()';
 			}
 			try {
@@ -576,6 +578,7 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 			}
         },
 		getUrl: function(L, B) {
+			var C = this;
             var b = ['get', 'utf-8'];
             if (L && L.length == 2) {
                 var a = L[0];
@@ -588,7 +591,6 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
                 }
                 this.ajax(b[0], b[1], a,
                 function(s) {
-                    var C = CKobject;
                     if (s && s != 'error') {
                         var d = '',
                         e = s;
@@ -662,23 +664,25 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
             };
         },
         getObjectById: function(s) {
-            if (this._T_) {
-                return this;
+			var C = this;
+            if (C._T_) {
+				C._V_=C._K_(s)
+                return C ;
             }
-            var X = null,
-            Y = this._K_(s),
+            var x = null,
+            y = C._K_(s),
             r = 'embed';
-            if (Y && Y.nodeName == 'OBJECT') {
-                if (typeof Y.SetVariable != 'undefined') {
-                    X = Y;
+            if (y && y.nodeName == 'OBJECT') {
+                if (typeof y.SetVariable != 'undefined') {
+                   x= y;
                 } else {
-                    var Z = Y.getElementsByTagName(r)[0];
-                    if (Z) {
-                        X = Z;
+                    var z = y.getElementsByTagName(r)[0];
+                    if (z) {
+                        x= z;
                     }
                 }
             }
-            return X;
+            return x;
         },
         ajax: function(b, u, s, f) {
             var x = this.getXhr();
@@ -716,7 +720,24 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
             }
         },
         addListener: function(e, f) {
-			var o=CKobject._V_;
+			var o=this._V_;
+			switch(e){
+				case 'time':
+					e='timeupdate';
+					this.AT=f;
+					f=this.addListenerTime;
+					break;
+				case 'totaltime':
+					this.ATAll=f;
+					return;
+					break;
+				default:
+					break;
+			}
+			//console.log(typeof(f));
+			if(typeof(f)=='string'){
+				f=eval(f);
+			}
             if (o.addEventListener) {
 				try{
                 	o.addEventListener(e, f, false);
@@ -738,7 +759,22 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
             }
         },
         removeListener: function( e, f) {
-			var o=CKobject._V_;
+			var o=this._V_;
+			switch(e){
+				case 'time':
+					e='timeupdate';
+					this.AT=null;
+					break;
+				case 'totaltime':
+					this.ATAll=null;
+					return;
+					break;
+				default:
+					break;
+			}
+			if(typeof(f)=='string'){
+				f=eval(f);
+			}
             if (o.removeEventListener) {
 				try{
                 	o.removeEventListener(e, f, false);
@@ -786,11 +822,11 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
                 v: v
             };
         },
-		embed:function(f,d,i,w,h,b,v,e,p){
+		embed:function(f,d,i,w,h,b,v,e,p,j){
 			var s=['all'];
 			if(b){
 				if(this.isHTML5()){
-					this.embedHTML5(d,i,w,h,e,v,s);
+					this.embedHTML5(d,i,w,h,e,v,s,j);
 				}
 				else{
 					this.embedSWF(f,d,i,w,h,v,p);
@@ -801,7 +837,7 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 					this.embedSWF(f,d,i,w,h,v,p);
 				}
 				else if(this.isHTML5()){
-					this.embedHTML5(d,i,w,h,e,v,s);
+					this.embedHTML5(d,i,w,h,e,v,s,j);
 				}
 				else{
 					this.embedSWF(f,d,i,w,h,v,p);
@@ -845,7 +881,7 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 			}
             s += '<object pluginspage="http://www.macromedia.com/go/getflashplayer" ';
             s += 'classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" ';
-            s += 'codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" ';
+            s += 'codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=11,3,0,0" ';
             s += 'width="' + W + '" ';
             s += 'height="' + H + '" ';
             s += i;
@@ -864,7 +900,7 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
                     l = error['f'];
 					g = true;
                 } else {
-                    if (this.Flash()['v'] < 10) {
+                    if (this.Flash()['v'] < 11) {
                         l = error['v'];
 						g = true;
                     } else {
@@ -882,14 +918,15 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 				this._K_(D).style.textAlign= 'center';
 			}
         },
-        embedHTML5: function(C, P, W, H, V, A, S) {
+        embedHTML5: function(C, P, W, H, V, A, S, J) {
             this._E_ = {
                 c: C,
                 p: P,
                 w: W,
                 h: H,
                 v: V,
-                s: S
+                s: S,
+				j: J==undefined || J?true:false
             };
             this._A_ = A;
 			this.getX();
@@ -971,10 +1008,11 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 			return false;
         },
         showHtml5: function() {
-            var C = CKobject;
+            var C = this;
             var p = C._E_['p'],
 			a = C._E_['v'],
 			c = C._E_['c'],
+			j = '',
 			b = false;
 			var s = this._E_['v'];
 			var w=C._E_['w'],h=C._E_['h'];
@@ -994,14 +1032,16 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 			if(h.toString().indexOf('%')>-1){
 				h='100%';
 			}
-			var v = '<video controls'+r+' id="' + p + '" width="' + w + '" height="' + h + '"' + C.getParams() + '>' + C.getVideo() + '</video>';
+			if(C._E_['j']){
+				j=' controls="controls"';
+			}
+			var v = '<video'+j+r+' id="' + p + '" width="' + w + '" height="' + h + '"' + C.getParams() + ' webkit-playsinline>' + C.getVideo() + '</video>';
             C._K_(c).innerHTML = v;
-			
             C._K_(c).style.backgroundColor = '#000';
-            C._V_ = this._K_(p);
+            C._V_ = C._K_(p);
 			if(!d){
-				C._K_(c).style.width=this._E_['w'].toString().indexOf('%')>-1?(C._K_(c).offsetWidth*parseInt(this._E_['w'])*0.01)+'px':C._V_.width+'px';
-				C._K_(c).style.height=this._E_['h'].toString().indexOf('%')>-1?(C._K_(c).offsetHeight*parseInt(this._E_['h'])*0.01)+'px':C._V_.height+'px';
+				C._K_(c).style.width=C._E_['w'].toString().indexOf('%')>-1?(C._K_(c).offsetWidth*parseInt(C._E_['w'])*0.01)+'px':C._V_.width+'px';
+				C._K_(c).style.height=C._E_['h'].toString().indexOf('%')>-1?(C._K_(c).offsetHeight*parseInt(C._E_['h'])*0.01)+'px':C._V_.height+'px';
 			}
             C._P_ = false;
             C._T_ = true;
@@ -1028,7 +1068,19 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 			C.addListener('loadedmetadata', C.loadedMetadataHandler);
 			C.addListener('ended', C.endedHandler);
 			C.addListener('volumechange', C.volumeChangeHandler);
+			if((C.getVars('m')!='' && C.getVars('m')!=null) || parseInt( C.getSn('setup', 0))>0){
+				C._K_(c).style.cursor='pointer';
+			}
+			if((C.getVars('m')!='' && C.getVars('m')!=null) || parseInt( C.getSn('setup', 1))==1){
+				C.addListener('click', C.html5Click);
+			}
         },
+		addListenerTime:function(){
+			var C = CKobject;
+			if(C.AT){
+				C.AT(C._V_['currentTime']);
+			}
+		},
         videoPlay: function() {
             if (this._T_) {
                 this._V_.play();
@@ -1059,6 +1111,9 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
             }
         },
         changeVolume: function(n) {
+			if(n<0 || n>100){
+				return;
+			}
             if (this._T_) {
                 this._V_['volume'] = n * 0.01;
             }
@@ -1228,6 +1283,57 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 		marqueeClose: function(s) {
             this.getNot();
         },
+		videoError: function(s) {
+            this.getNot();
+        },
+		formatUrl: function(s) {
+            this.getNot();
+        },
+		sendJS: function(s) {
+            this.getNot();
+        },
+		plugAttribute: function(s) {
+            this.getNot();
+        },
+		errorTextShow: function(s) {
+            this.getNot();
+        },
+		openUrl: function(s) {
+            window.open(s);
+        },
+		jsonParse: function(s) {
+            this.getNot();
+        },
+		promptShow: function(s,x,y) {
+            this.getNot();
+        },
+		screenShot: function(s,x,y,x2,y2) {
+            this.getNot();
+        },
+		fullScreen: function() {
+            this.getNot();
+        },
+		allowFull: function() {
+            this.getNot();
+        },
+		loadButton: function() {
+            this.getNot();
+        },
+		getFile: function() {
+            this.getNot();
+        },
+		textBoxShow:function() {
+            this.getNot();
+        },
+		loadElement: function() {
+            this.getNot();
+        },
+		textBoxClose: function() {
+            this.getNot();
+        },
+		textBoxTween: function() {
+            this.getNot();
+        },
         getNot: function() {
             var s='The ckplayer\'s API for HTML5 does not exist';
 			return s;
@@ -1281,7 +1387,7 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
         loadedMetadataHandler: function() {
             var C = CKobject;
             C.returnStatus('loadedmetadata', 1);
-            C._O_['totaltime'] = C._V_['duration'];
+            C._O_['totalTime'] = C._V_['duration'];
             C._O_['width'] = C._V_['width'];
             C._O_['height'] = C._V_['height'];
             C._O_['awidth'] = C._V_['videoWidth'];
@@ -1295,6 +1401,12 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
                 C._O_['volume'] = C._V_['volume'] * 100;
                 C.returnStatus('volumechange:'+C._V_['volume'] * 100, 1);
             }
+			if (parseInt(C.getVars('p')) == 1) {
+				C.playHandler();
+			}
+			if(C.ATAll){
+				C.ATAll(C._V_['duration']);
+			}
         },
         errorHandler: function() {
             CKobject.returnStatus('error', 1);
@@ -1334,13 +1446,20 @@ html5代码块的代码可以随意更改以适合你的应用，欢迎到论坛
 								C._J_=j;
 							}
 							else{
-								C._J_=parseInt(C._O_['totaltime'])+j;
+								C._J_=parseInt(C._O_['totalTime'])+j;
 							}
 						}	
 					}
 				}
             }
         },
+		html5Click: function(){
+			//console.log(this);
+			var C = CKobject;
+			if(C.getVars('m')!='' && C.getVars('m')!=null){
+				window.open(C.getVars('m'));
+			}
+		},
         returnStatus: function(s, j) {
             var h = s;
             if (this._H_ == 3) {

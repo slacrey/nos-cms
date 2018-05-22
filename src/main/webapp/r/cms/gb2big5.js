@@ -14,7 +14,7 @@ function StranText(txt,toFT,chgTxt)
 //转换对象，使用递归，逐层剥到文本
 function StranBody(fobj)
 {
-	if(typeof(fobj)=="object"){var obj=fobj.childNodes}
+	if(typeof(fobj)=="object"){var obj=fobj.childNodes;}
 	else 
 	{
 		var tmptxt=gb2big5_Obj.innerHTML.toString()

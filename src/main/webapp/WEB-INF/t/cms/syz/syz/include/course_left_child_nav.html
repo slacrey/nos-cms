@@ -1,9 +1,0 @@
-<div class="left_nav_course">
-    <ul>
-        [@cms_channel_list parentId='${channel.parent.id}']
-        [#list tag_list as c]
-        <li><a href="${c.url}">${c.title!c.name}</a></li>
-        [/#list]
-        [/@cms_channel_list]
-    </ul>
-</div>

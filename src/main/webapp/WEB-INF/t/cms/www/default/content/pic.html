@@ -1,183 +1,177 @@
 <!DOCTYPE HTML>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>${title} - ${site.name}</title>
-<meta http-equiv="keywords" content="${content.tagStr!}"/>
-<meta http-equiv="description" content="${content.description!}"/>
-<!--[if lt IE 9]>
-<script src="${resSys}/html5.js" type="text/javascript"></script>
-<![endif]-->
-<script src="${resSys}/jquery.js"></script>
-<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
-<script src="${resSys}/responsiveslides.min.js"></script>
-
+<title>${title} - ${site.name} - Powered by JEECMS</title>
+<meta content="${content.tagStr!}" http-equiv="keywords" />
+<meta content="${content.description!}" http-equiv="description" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
-<script src="/${res}/js/common.js" type="text/javascript"></script>
-<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
-<link href="/${res}/css/album.css" rel="stylesheet" media="screen" type="text/css">
-<link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="/${res}/css/responsiveslides.css">
-<link rel="stylesheet" href="/${res}/css/pic_content.css">
-<script type="text/javascript">
-$(function() {
-  Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
-  Cms.viewCount("${base}","${content.id}");
-  Cms.siteFlow("${base}", location.href, document.referrer);
-});
-</script>
-<style type="text/css">  
-.box {height:66px; float:left; width:480px; overflow:hidden; position:relative;}  
-.box li { display:block; float:left; margin-left:5px; margin-right:5px; width:100px; height:70px; font-size:50px;color:#ccc;line-height:66px;text-decoration:none;text-align:center; cursor:pointer;}  
-.box li:hover { color:#999; }  
-.box li.active { background-position:-174px 0; color:#555;cursor:default;}  
-a.prev, a.next {background:url(/r/cms/www/red/img/pic/left_02.png) no-repeat 0 0; display:block;width:40px;height:40px; float:left; margin:15px 0 0 0; cursor:pointer;}  
-a.next { background-image:url(/r/cms/www/red/img/pic/right_02.png)}  
-.scroll_list{position:absolute;}  
-.tkxtb/*小图片*/{ width:100px; height:62px; overflow:hidden;}
-.tkxtblist{ margin:auto;}
-</style>  
-<script type="text/javascript">
-$(function() {
-$("#slider4").responsiveSlides({
-	manualControls: '#slider4-pager',
-        auto: false,
-        pager: false,
-        nav: true,
-        speed: 500,
-        namespace: "callbacks",
-        before: function () {
-        },
-        after: function () {
-        }
-      });
-var page= 1;  
-      var i = 4;//每版四个图片  
-            
-    //向右滚动  
-     $(".next").click(function(){ //点击事件  
-        
-             var v_wrap = $(this).parents(".scroll"); // 根据当前点击的元素获取到父元素  
-             var v_show = v_wrap.find(".scroll_list"); //找到视频展示的区域  
-             var v_cont = v_wrap.find(".box"); //找到视频展示区域的外围区域  
-               
-             var v_width = v_cont.width();  
-             var len = v_show.find("li").length; //我的视频图片个数  
-             var page_count = Math.ceil(len/i); //只要不是整数，就往大的方向取最小的整数  
-  
-         if(!v_show.is(":animated")){  
-             if(page == page_count){  
-                 v_show.animate({left:'0px'},"slow");  
-                 page =1;   
-                }else{  
-                 v_show.animate({left:'-='+v_width},"slow");  
-                 page++;  
-             }  
-         }  
-           
-      });  
-        
-     //向左滚动  
-          $(".prev").click(function(){ //点击事件  
-        
-             var v_wrap = $(this).parents(".scroll"); // 根据当前点击的元素获取到父元素  
-             var v_show = v_wrap.find(".scroll_list"); //找到视频展示的区域  
-             var v_cont = v_wrap.find(".box"); //找到视频展示区域的外围区域  
-               
-             var v_width = v_cont.width();  
-             var len = v_show.find("li").length; //我的视频图片个数  
-             var page_count = Math.ceil(len/i); //只要不是整数，就往大的方向取最小的整数  
-  
-         if(!v_show.is(":animated")){  
-             if(page == 1){  
-             v_show.animate({left:'-='+ v_width*(page_count-1)},"slow");  
-             page =page_count;   
-             }else{  
-             v_show.animate({left:'+='+ v_width},"slow");  
-             page--;  
-         }  
-         }  
-      });   
-});
-</script>
-</head>
-<body>
-<div class="container">
-	[#include "../include/header.html"/]
-    [#include "../include/search_csi.html"/]
-    [#include "../include/navi.html"/]
-	<div class="website mt10">当前位置：<a href="${base}/">首页</a> > [#list channel.nodeList as n]<a href="${n.url}" target="_blank">${n.name}</a>[#if n_has_next] > [/#if][/#list] > 正文</div>
-    <div class="clear"></div>
-    <div class="newsTex">
-    	<h1 style="color:#122E67;">${content.title}</h1>
-        <div class="msgbar">发布时间： ${content.releaseDate} &nbsp; 作者：${content.author!'本站编辑'} &nbsp; 来源： ${content.origin!'本站原创'} &nbsp; 浏览次数：<span id="views"></span>
-        [#if user??]
-        <script type="text/javascript">
-        $(function() {
-        Cms.collectexist("${base}","${content.id}","cancelSpan","comfirmSpan");
-        });
-        </script>
-        [/#if]
-        </div>
-    </div>
-    
-	[#if pic??]
-	<div class="callbacks_container">
-      <ul class="rslides" id="slider4">
-            [#list content.pictures as p]
-            <li>
-            <p align=center>
-            
-            <table border="0" align="center" cellpadding="0" cellspacing="0">
-              <tr>
-                <td align="center"><img src="${p.imgPath!}"/></td>
-              </tr>
-            </table>
+<script src="/${res}/js/piccontent.min.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<link type="text/css" rel="stylesheet" href="/${res}/css/piccontext.css" />
 
-            </p>
-            <p class="caption">${p.description!}</p>
-            </li>
-            [/#list]
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<head>
+<body style="background-color:#f9f9f9;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <!--弹出层开始-->
+  <div class="bodymodal"></div>
+  <!--播放到第一张图的提示-->
+  <div class="firsttop">
+    <div class="firsttop_right">
+      <div class="close2"> <a class="closebtn1" title="关闭" href="javascript:void(0)"></a> </div>
+      <div class="replay">
+        <h2 id="div-end-h2"> 已到第一张图片了。 </h2>
+        <p> <a class="replaybtn1" onClick="document.location.reload()">重新播放</a> </p>
+      </div>
+      <div class="pictwo">
+        <ul>
+          <li>
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">上一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>          
+          <li>
+           [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">下一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>
         </ul>
-        <table border="0" align="center" cellpadding="0" cellspacing="0" class="tkxtblist">
-        <tr>
-        <td align="center">
-        <div class="scroll">  
-        <!-- "prev page" link -->  
-        <a class="prev" href="#"></a>  
-        <div class="box">  
-        <div class="scroll_list">  
-        <ul id="slider4-pager" >
-        [#list content.pictures as p]
-        <li style="padding-right:0px; padding-left:0px; float:left; padding-bottom:0px; width: 108px; padding-top:8px; text-align:center;">
-        <a href="#">
-        <div class="tkxtb">
-        <img src="${p.imgPath!}" />
-        </div>
-        </a>
-        </li>
-        [/#list]
-        </ul>
-        </div>  
-        </div>  
-        <!-- "next page" link -->  
-        <a  class="next" href="#"></a>
-        </div>  
-        </td>
-        </tr>
-        </table>
+      </div>
+      <div class="returnbtn"> <a href="">返回图库首页</a> </div>
     </div>
-	[#else]
-    <div class="prompt">
-        <dl>
-            <dt></dt>
-            <dd class="msg">尚未添加图集图片！</dd>
-        </dl>
-    </div>		
-    [/#if]
-	[#include "../include/friend_link.html"/]
-	[#include "../include/footer.html"/]
-</div>
+  </div>
+  <!--播放到最后一张图的提示-->
+  <div class="endtop">
+    <div class="firsttop_right">
+      <div class="close2"> <a class="closebtn2" title="关闭" href="javascript:void(0)"></a> </div>
+      <div class="replay">
+        <h2 id="H1"> 已到最后一张图片了。 </h2>
+        <p> <a class="replaybtn2" onClick="document.location.reload()">重新播放</a> </p>
+      </div>
+      <div class="pictwo">
+        <ul>
+          <li>
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">上一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>          
+          <li>
+          [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">下一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>
+        </ul>
+      </div>
+      <div class="returnbtn"> <a href="${base}/pic/index.jhtml">返回图库首页</a> </div>
+    </div>
+  </div>
+  <!--弹出层结束--> 
+  <!--图片特效内容开始-->
+  <div class="piccontext">
+    <h2>${content.title}</h2>
+    <div class="content-inf">发布时间：${content.releaseDate}&nbsp;&nbsp;作者：${content.author!'本站编辑'}&nbsp;&nbsp;来源：${content.origin!'本站原创'}&nbsp;&nbsp;浏览次数：<span id="views"></span>
+     <div class="content-action"><a class="support">支持<img src="/${res}/images/jiantou1.jpg" />键翻阅图片</a> | <a class="content-comment" href="${base}/comment.jspx?contentId=${content.id!}">我有话说</a> | <span class="content-share">分享
+    [#include "inc_share.html"/]
+    </span> | <a class="content-collect" id="collectCsiDiv">收藏</a></div>
+     </div>
+    </div>
+    [#if pic??]
+    <!--大图展示-->
+    <div class="picshow">
+      <div class="picshowtop">
+          <a href="#"><img src="" alt="" id="pic1" curindex="0" /></a>
+          <a id="preArrow" href="javascript:void(0)" class="contextDiv" title="上一张"><span id="preArrow_A"></span></a>
+          <a id="nextArrow" href="javascript:void(0)" class="contextDiv" title="下一张"><span id="nextArrow_A"></span></a>
+      </div>
+      <div class="picshowtxt">
+        <div class="picshowtxt_left"><span>1</span>/<i>${content.pictures?size}</i></div>
+        <div class="picshowtxt_right"></div>
+      </div>
+      <div class="picshowlist"> 
+        <!--上一条图库-->
+        <div class="picshowlist_left">
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+          <div class="picleftimg"> <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a> </div>
+          <div class="piclefttxt"> <a href="${tag_bean.url}">${tag_bean.title}</a> </div>
+          [#else]
+          <div class="picleftimg"> <a><img src="/${res}/images/no-pic.png" /></a> </div>
+          <div class="piclefttxt"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+        </div>
+        <div class="picshowlist_mid">
+          <div class="picmidleft"> <a href="javascript:void(0)" id="preArrow_B"><img src="/${res}/images/left1.jpg" alt="上一个" /></a> </div>
+          <div class="picmidmid">
+            <ul>
+            [#list content.pictures as p]
+              <li><a href="javascript:void(0);"><img src="${p.imgPath!}" alt="" bigimg="${p.imgPath!}" text="${p.description!}" /></a></li>
+            [/#list]
+            </ul>
+          </div>
+          <div class="picmidright"> <a href="javascript:void(0)" id="nextArrow_B"><img src="/${res}/images/right1.jpg" alt="下一个" /></a> </div>
+        </div>
+        <!--下一张图库新闻-->
+        <div class="picshowlist_right">
+          [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+          <div class="picleftimg"> <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a> </div>
+          <div class="piclefttxt"> <a href="${tag_bean.url}">${tag_bean.title}</a> </div>
+          [#else]
+          <div class="picleftimg"> <a><img src="/${res}/images/no-pic.png" /></a> </div>
+          <div class="piclefttxt"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+        </div>
+      </div>
+      [#else]    
+            <dd class="msg">尚未添加图集图片！</div>		
+       [/#if]
+    </div>
+  </div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
 </body>
 </html>

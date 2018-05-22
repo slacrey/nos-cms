@@ -63,6 +63,6 @@
 
 .filetree li { padding: 3px 0 2px 16px; }
 .filetree span.folder, .filetree span.file { padding: 1px 0 1px 16px; display: block; }
-.filetree span.folder { background: url(../img/treeview/folder.gif) 0 0 no-repeat; }
-.filetree li.expandable span.folder { background: url(../img/treeview/folder-closed.gif) 0 0 no-repeat; }
-.filetree span.file { background: url(../img/treeview/file.gif) 0 0 no-repeat; }
+.filetree span.folder { background: url(../img/treeview/folder.gif) left 2px no-repeat; }
+.filetree li.expandable span.folder { background: url(../img/treeview/folder-closed.gif) left 2px no-repeat; }
+.filetree span.file { background: url(../img/treeview/file.gif) left center no-repeat; }

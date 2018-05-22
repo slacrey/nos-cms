@@ -68,11 +68,11 @@ $.validator.AlertError = {
 $.validator.addMethod("username", function(value) {
 	var p = /^[0-9a-zA-Z\u4e00-\u9fa5\.\-@_]+$/;
 	return p.exec(value) ? true : false;
-}, "Please enter only letters,digits,chinese and '_','-','@'");
+}, "请只输入字母，数字，汉字和'_'，'-'，'@'");
 $.validator.addMethod("path", function(value) {
 	var p = /^[0-9a-zA-Z]+$/;
 	return p.exec(value) ? true : false;
-}, "Please enter only letters and digits");
+}, "请只输入字母和数字");
 
 $.fn.extend( {
 	showBy : function(target) {

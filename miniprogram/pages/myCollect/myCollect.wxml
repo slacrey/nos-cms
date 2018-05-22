@@ -1,0 +1,31 @@
+<scroll-view>
+<block wx:for="{{collect}}" wx:key="key">
+<navigator url="../newsContent/newsContent?id={{item.id}}" wx:if="{{item.modelName=='新闻'}}">
+<view class="pl-box">
+  <view class="flex-box">
+   <view class="txt-over">{{item.title}}</view>
+   <view class="gray">{{item.channel}}</view>
+  </view>
+  
+</view>
+</navigator>
+<navigator url="../picturesContent/picturesContent?id={{item.id}}" wx:if="{{item.modelName=='图库'}}">
+<view class="pl-box">
+  <view class="flex-box">
+   <view>{{item.title}}</view>
+   <view class="gray">{{item.channel}}</view>
+  </view>
+</view>
+</navigator>
+<navigator url="../videosContent/videosContent?id={{item.id}}" wx:if="{{item.modelName=='视频'}}">
+<view class="pl-box">
+  <view class="flex-box">
+   <view class="txt-over">{{item.title}}</view>
+   <view class="gray">{{item.channel}}</view>
+  </view>
+</view>
+</navigator>
+</block>
+</scroll-view>
+<view hidden="{{hidden}}" class="hidden" wx:if="{{hasMore!='true'}}"><image src="../../icons/waiting.gif" /> 正在加载....</view>
+<view hidden="{{hidden}}" class="hidden" wx:else>没有更多数据了....</view>

@@ -26,7 +26,7 @@
 			<input type="hidden" name="uploadNum" value="${uploadNum}"/>
 			<div style="margin-bottom:3px;"><@s.m "imagecut.origImage"/> &nbsp; &nbsp;<@s.m "global.width"/>: <span id="oimgW"></span> &nbsp; &nbsp; <@s.m "global.height"/>: <span id="oimgH"></span></div>
 			<@s.m "imagecut.zoomImage"/> <@s.m "global.width"/>: <input type="text" name="reMinWidth" id="reMinWidth" value="${minWidth}" size="5" onkeypress="if(event.keyCode==13){$('#resetButton').click();return false;}" onfocus="this.select();"/>
-			<@s.m "global.height"/>：<input type="text" name="reMinHeight" id="reMinHeight" value="${minHeight}" size="5" onkeypress="if(event.keyCode==13){$('#resetButton').click();return;}" onfocus="this.select();"/>
+			<@s.m "global.height"/>: <input type="text" name="reMinHeight" id="reMinHeight" value="${minHeight}" size="5" onkeypress="if(event.keyCode==13){$('#resetButton').click();return;}" onfocus="this.select();"/>
 			<input type="button" id="resetButton" value="<@s.m "global.reset"/>" onclick="resetOption($('#reMinWidth').val(),$('#reMinHeight').val());"/>
 			<div style="text-align:center;margin-top:7px;"><input type="button" value="<@s.m "imagecut.confirmCut"/>" onclick="$('#submitForm').submit();window.close();"/> <input type="button" value="<@s.m "global.closeWindow"/>" onclick="window.close();"/></div>
 		</form>

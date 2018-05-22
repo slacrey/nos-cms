@@ -16,7 +16,7 @@
     $(function() {
       var scored=$.cookie("_cms_score_" +${content.id});
       var readOnly=false;
-      if(scored==1)readOnly=true;
+      if(scored==1)readOnly=true;//已经投票设置只读
       $.fn.raty.defaults.path = '${resSys}/raty/img';
       var scores=new Array();
       [#list tag_bean.orderItems as item]
@@ -61,9 +61,9 @@
   <ul>
       [#list tag_bean.orderItems as item]
       <li style="float:left;cursor: pointer;" onclick="Cms.score('${base}',${content.id},${item.id});">
-         <p> <span id="score-item-${item.id}">0</span>票</p>
+         <p style="text-align:center;"> <span id="score-item-${item.id}">0</span>票</p>
          [#if item.imagePath??]<p><img src="${item.imagePath}"/></p>[/#if]
-         <p>${item.name!}</p>
+         <p style="text-align:center;">${item.name!}</p>
       </li>
       [/#list]
    </ul>   

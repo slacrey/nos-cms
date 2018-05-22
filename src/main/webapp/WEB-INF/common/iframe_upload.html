@@ -14,11 +14,7 @@ if(!$(imgSrc).attr("noResize")) {
 	$(imgSrc).css("width","auto");
 	$(imgSrc).css("height","auto");
 }
-if("${uploadPath}".indexOf("?")==-1) {
-	$(imgSrc).attr("src","${uploadPath}?d="+new Date()*1);
-} else {
-	$(imgSrc).attr("src","${uploadPath}&d="+new Date()*1);
-}
+parent.previewImg('${uploadNum}');
 </#if>
 </script>
 </head>

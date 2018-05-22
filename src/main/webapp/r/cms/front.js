@@ -21,24 +21,44 @@ Cms.viewCount = function(base, contentId, viewId, commentId, downloadId, upId,
 		}
 	});
 }
+Cms.channelViewCount = function(base, channelId, viewId) {
+	viewId = viewId || "views";
+	$.getJSON(base + "/channel_view.jspx", {
+		channelId : channelId
+	});
+}
 /**
  * 站点流量统计
  */
-Cms.siteFlow = function(base, page, referer,flag,pvId, visitorId) {
+Cms.siteFlow = function(base,page, referer,flowSwitch,
+		pvId,visitorId,dayPvId, dayVisitorId,
+		weekPvId,weekVisitorId,monthPvId,monthVisitorId) {
 	pvId = pvId || "pv";
 	visitorId = visitorId || "visitor";
-	flag = flag || 1;
-	$.getJSON(base + "/flow_statistic.jspx", {
-		page : page,
-		referer : referer
-	}, function(data) {
-		if(flag==1){
+	dayPvId=dayPvId || "dayPv";
+	dayVisitorId=dayVisitorId || "dayVisitor";
+	weekPvId=weekPvId || "weekPv";
+	weekVisitorId=weekVisitorId || "weekVisitor";
+	monthPvId=monthPvId || "monthPv";
+	monthVisitorId=monthVisitorId || "monthVisitor";
+	flowSwitch=flowSwitch||"true";
+	if(flowSwitch=="true"){
+		$.getJSON(base + "/flow_statistic.jspx", {
+			page : page,
+			referer : referer
+		}, function(data) {
 			if (data.length > 0) {
 				$("#" + pvId).text(data[0]);
 				$("#" + visitorId).text(data[1]);
+				$("#" + dayPvId).text(data[2]);
+				$("#" + dayVisitorId).text(data[3]);
+				$("#" + weekPvId).text(data[4]);
+				$("#" + weekVisitorId).text(data[5]);
+				$("#" + monthPvId).text(data[6]);
+				$("#" + monthVisitorId).text(data[7]);
 			}
-		}
-	});
+		});
+	}
 }
 /**
  * 成功返回true，失败返回false。
@@ -151,6 +171,67 @@ Cms.comment = function(callback, form) {
 Cms.commentList = function(base, c, options) {
 	c = c || "commentListDiv";
 	$("#" + c).load(base + "/comment_list.jspx", options);
+}
+Cms.commentListMore = function(base, c, options) {
+	c = c || "commentListDiv";
+	$("#" + c).load(base + "/comment_list.jspx", options);
+	$('#commentDialog').dialog('open');
+}
+/**
+ * 评论顶
+ */
+Cms.commentUp = function(base, commentId, origValue, upId) {
+	upId = upId || "commentups";
+	var updown = $.cookie("_cms_comment_updown_" + commentId);
+	if (updown) {
+		return false;
+	}
+	$.cookie("_cms_comment_updown_" + commentId, "1");
+	$.get(base + "/comment_up.jspx", {
+		"commentId" : commentId
+	}, function(data) {
+		$("#" + upId).text(origValue + 1);
+	});
+	return true;
+}
+/**
+ * 评论踩
+ */
+Cms.commentDown = function(base, commentId, origValue, downId) {
+	downId = downId || "commentdowns";
+	var updown = $.cookie("_cms_comment_updown_" + commentId);
+	if (updown) {
+		return false;
+	}
+	$.cookie("_cms_comment_updown_" + commentId, "1");
+	$.get(base + "/comment_down.jspx", {
+		commentId : commentId
+	}, function(data) {
+		$("#" + downId).text(origValue + 1);
+	});
+	return true;
+}
+/**
+ * 评论输入框
+ */
+Cms.commentInputCsi = function(base,commentInputCsiDiv, contentId,commemtId) {
+	commentInputCsiDiv = commentInputCsiDiv || "commentInputCsiDiv";
+	$("#"+commentInputCsiDiv).load(base+"/comment_input_csi.jspx?contentId="+contentId+"&commemtId="+commemtId);
+}
+Cms.commentInputLoad= function(base,commentInputCsiPrefix,commentInputCsiDiv,contentId,commemtId) {
+	$("div[id^='"+commentInputCsiPrefix+"']").html("");
+	Cms.commentInputCsi(base,commentInputCsiDiv,contentId,commemtId);
+}
+/**
+ * 是否是微信打开
+ */
+Cms.isOpenInWeiXin = function() {
+	var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+     } else {
+        return false;
+    }
 }
 /**
  * 客户端包含登录
@@ -293,6 +374,7 @@ Cms.jobApply = function(base, cId) {
 	}, function(data) {
 		if(data.result==-1){
 			alert("请先登录");
+			location.href=base+"/login.jspx";
 		}else if(data.result==-2){
 			alert("职位id不能为空");
 		}else if(data.result==-3){
@@ -306,3 +388,102 @@ Cms.jobApply = function(base, cId) {
 		}
 	}, "json");
 }
+Cms.loginSSO=function(base){
+	var username=$.cookie('username');
+	var sessionId=$.cookie('JSESSIONID');
+	var ssoLogout=$.cookie('sso_logout');
+	if(username!=null){
+		if(sessionId!=null||(ssoLogout!=null&&ssoLogout=="true")){
+			$.post(base+"/sso/login.jspx", {
+				username:username,
+				sessionId:sessionId,
+				ssoLogout:ssoLogout
+			}, function(data) {
+					if(data.result=="login"||data.result=="logout"){
+						location.reload();
+					}
+			}, "json");
+		}
+	}
+}
+Cms.loginAdmin=function(base){
+	var sessionKey=localStorage.getItem("sessionKey");
+	if(sessionKey==null||sessionKey==""){
+		$.post(base+"/adminLogin.jspx", {
+		}, function(data) {
+			if(data.sessionKey!=""){
+				localStorage.setItem("sessionKey", data.sessionKey); 
+				localStorage.setItem("userName", data.userName); 
+			}
+		}, "json");
+	}
+}
+Cms.logoutAdmin=function(base){
+	var sessionKey=localStorage.getItem("sessionKey");
+	var userName=localStorage.getItem("userName");
+	if(sessionKey!=null&&sessionKey!=""&&userName!=""){
+		$.post(base+"/adminLogout.jspx", {
+			userName:userName,
+			sessionKey:sessionKey
+		}, function(data) {
+		}, "json");
+		localStorage.removeItem("sessionKey");
+		localStorage.removeItem("userName");
+	}
+}
+Cms.checkPerm = function(base, contentId) {
+	$.getJSON(base + "/page_checkperm.jspx", {
+		contentId : contentId
+	}, function(data) {
+		if (data==3) {
+			alert("请先登录");
+			location.href=base+"/user_no_login.jspx";
+		}else if(data==4){
+			location.href=base+"/group_forbidden.jspx";
+		}else if(data==5){
+			location.href=base+"/content/buy.jspx?contentId="+contentId;
+		}
+	});
+}
+Cms.collectCsi = function(base,collectCsiDiv, tpl, contentId) {
+	collectCsiDiv = collectCsiDiv || "collectCsiDiv";
+	$("#"+collectCsiDiv).load(base+"/csi_custom.jspx?tpl="+tpl+"&cId="+contentId);
+}
+Cms.getCookie=function getCookie(c_name){
+	if (document.cookie.length>0)
+	  {
+	  	c_start=document.cookie.lastIndexOf(c_name + "=");
+		  if (c_start!=-1)
+		    { 
+			    c_start=c_start + c_name.length+1;
+			    c_end=document.cookie.indexOf(";",c_start);
+			    if (c_end==-1){
+			    	c_end=document.cookie.length;
+			    } 
+			    return unescape(document.cookie.substring(c_start,c_end));
+		    } 
+		  }
+	return "";
+}
+Cms.MobileUA=function(){
+	var ua = navigator.userAgent.toLowerCase();  
+    var mua = {  
+        IOS: /ipod|iphone|ipad/.test(ua), //iOS  
+        IPHONE: /iphone/.test(ua), //iPhone  
+        IPAD: /ipad/.test(ua), //iPad  
+        ANDROID: /android/.test(ua), //Android Device  
+        WINDOWS: /windows/.test(ua), //Windows Device  
+        TOUCH_DEVICE: ('ontouchstart' in window) || /touch/.test(ua), //Touch Device  
+        MOBILE: /mobile/.test(ua), //Mobile Device (iPad)  
+        ANDROID_TABLET: false, //Android Tablet  
+        WINDOWS_TABLET: false, //Windows Tablet  
+        TABLET: false, //Tablet (iPad, Android, Windows)  
+        SMART_PHONE: false //Smart Phone (iPhone, Android)  
+    };  
+    mua.ANDROID_TABLET = mua.ANDROID && !mua.MOBILE;  
+    mua.WINDOWS_TABLET = mua.WINDOWS && /tablet/.test(ua);  
+    mua.TABLET = mua.IPAD || mua.ANDROID_TABLET || mua.WINDOWS_TABLET;  
+    mua.SMART_PHONE = mua.MOBILE && !mua.TABLET;  
+    return mua;  
+}
+

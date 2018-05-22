@@ -18,13 +18,12 @@ $.validator.addMethod("username", function(value) {
 	if(value.length==0) {return true;}
 	var p = /^[0-9a-zA-Z\u4e00-\u9fa5\.\-@_]+$/;
 	return p.exec(value) ? true : false;
-}, "Please enter only letters,digits,chinese and '_','-','@'");
+}, "请只输入字母，数字，汉字和_ '，' '，“@”");
 $.validator.addMethod("path", function(value) {
 	if(value.length==0) {return true;}
 	var p = /^[0-9a-zA-Z]+$/;
 	return p.exec(value) ? true : false;
-}, "Please enter only letters and digits");
-
+}, "请只输入字母和数字");
 $.extend($.validator.messages, {
 	required : "该项为必填项",
 	remote : "请修正该字段",
