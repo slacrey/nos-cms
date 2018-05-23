@@ -185,152 +185,152 @@ import formMixns from "@/mixins/form";
 export default {
   mixins: [formMixns], //普通表单变量
   data() {
-    let required = va.required('此项必填');
-    let number = va.number('必须为数字');
+    let required = va.required("此项必填");
+    let number = va.number("必须为数字");
     return {
-      dataInfo:{
-      },
-      adTypes:[],
-      conteDisable:[
-        true,
-        false,
-        false,
-        false,
-      ],
-      index:{image:0,flash:1,text:2,code:3},
-      dateRange:[],//时间范围
-      rules: {//校验规则
-        name:[required],
-        priority:[required,number],
-        views:[required,number],
-        enabled:[required],
-        domain:[required],
-        category:[required],
-        displayCount:[required],
-        clickCount:[required],
-        adspaceId:[required],
-        attr_image_link:[required],
-        attr_flash_url:[required],
-        attr_text_link:[required],
-        attr_text_title:[required],
-        code:[required],
+      dataInfo: {},
+      adTypes: [],
+      conteDisable: [true, false, false, false],
+      index: { image: 0, flash: 1, text: 2, code: 3 },
+      dateRange: [], //时间范围
+      rules: {
+        //校验规则
+        name: [required],
+        priority: [required, number],
+        views: [required, number],
+        enabled: [required],
+        domain: [required],
+        category: [required],
+        displayCount: [required],
+        clickCount: [required],
+        adspaceId: [required],
+        attr_image_link: [required],
+        attr_flash_url: [required],
+        attr_text_link: [required],
+        attr_text_title: [required],
+        code: [required]
       }
     };
   },
   methods: {
-    getPath(url){
-      let val = url; 
-      this.dataInfo.attr_image_url = '423423';
+    getPath(url) {
+      let val = url;
+      this.dataInfo.attr_image_url = "423423";
       this.dataInfo.attr_image_url = val;
-      console.log(val);
+      //console.log(val);
     },
-    categoryChange(val){
-      this.conteDisable = this.conteDisable.map(function(e){return false;});
+    categoryChange(val) {
+      this.conteDisable = this.conteDisable.map(function(e) {
+        return false;
+      });
       this.conteDisable[this.index[val]] = true;
     },
-    getAdTypes(){
-      axios.post(this.$api.adSpaceList).then(res=>{
-        if(res.code == '200'){
-          this.adTypes =  res.body;
-          if(this.id == 0 || this.dataInfo.adspaceId == ''){
-            if(res.body.length > 0 ){
+    getAdTypes() {
+      axios.post(this.$api.adSpaceList).then(res => {
+        if (res.code == "200") {
+          this.adTypes = res.body;
+          if (this.id == 0 || this.dataInfo.adspaceId == "") {
+            if (res.body.length > 0) {
               this.dataInfo.adspaceId = res.body[0].id;
             }
           }
         }
       });
     },
-    cleanImageParm(){
-      this.dataInfo.attr_image_height = '';
-      this.dataInfo.attr_image_width = '';
-      this.dataInfo.attr_image_url = '';
-      this.dataInfo.attr_image_link = '';
-      this.dataInfo.attr_image_title = '';
-      this.dataInfo.attr_image_target = '';
+    cleanImageParm() {
+      this.dataInfo.attr_image_height = "";
+      this.dataInfo.attr_image_width = "";
+      this.dataInfo.attr_image_url = "";
+      this.dataInfo.attr_image_link = "";
+      this.dataInfo.attr_image_title = "";
+      this.dataInfo.attr_image_target = "";
     },
-    cleanFlashParm(){
-      this.dataInfo.attr_flash_url = '';
-      this.dataInfo.attr_flash_width = '';
-      this.dataInfo.attr_flash_height = '';
+    cleanFlashParm() {
+      this.dataInfo.attr_flash_url = "";
+      this.dataInfo.attr_flash_width = "";
+      this.dataInfo.attr_flash_height = "";
     },
-    cleanTextParm(){
-      this.dataInfo.attr_text_title = '';
-      this.dataInfo.attr_text_target = '';
-      this.dataInfo.attr_text_font = '';
-      this.dataInfo.attr_text_color = '';
-      this.dataInfo.attr_text_link = '';
+    cleanTextParm() {
+      this.dataInfo.attr_text_title = "";
+      this.dataInfo.attr_text_target = "";
+      this.dataInfo.attr_text_font = "";
+      this.dataInfo.attr_text_color = "";
+      this.dataInfo.attr_text_link = "";
     },
-    cleanCodeParm(){
-      this.dataInfo.code = '';
+    cleanCodeParm() {
+      this.dataInfo.code = "";
     },
-    getParam(){
-      if(this.dateRange.length > 0){
+    getParam() {
+      if (this.dateRange.length > 0) {
         this.dataInfo.startTime = this.dateRange[0];
         this.dataInfo.endTime = this.dateRange[1];
       }
-      switch(this.dataInfo.category){
-        case 'image':
+      switch (this.dataInfo.category) {
+        case "image":
           this.cleanFlashParm();
           this.cleanTextParm();
           this.cleanCodeParm();
           break;
-        case 'flash':
-          this.cleanImageParm()
+        case "flash":
+          this.cleanImageParm();
           this.cleanTextParm();
           this.cleanCodeParm();
           break;
-        case 'text':
-          this.cleanImageParm()
+        case "text":
+          this.cleanImageParm();
           this.cleanFlashParm();
           this.cleanCodeParm();
           break;
-        case  'code':
-          this.cleanImageParm()
+        case "code":
+          this.cleanImageParm();
           this.cleanFlashParm();
           this.cleanTextParm();
           break;
       }
     },
-    getDataInfo(id) {//重写获取表单数据
-      axios.post(this.$api.adGet,{id:id})
+    getDataInfo(id) {
+      //重写获取表单数据
+      axios
+        .post(this.$api.adGet, { id: id })
         .then(res => {
           this.loading = false;
-          this.dataInfo = res.body; 
-          if(id == 0){
-            this.dataInfo.category = 'image';
-            this.dataInfo.attr_text_target = '_blank';
-            this.dataInfo.attr_image_target = '_blank';
-          }else{
+          this.dataInfo = res.body;
+          if (id == 0) {
+            this.dataInfo.category = "image";
+            this.dataInfo.attr_text_target = "_blank";
+            this.dataInfo.attr_image_target = "_blank";
+          } else {
             this.dateRange.push(res.body.startTime);
             this.dateRange.push(res.body.endTime);
           }
           this.getAdTypes();
           this.categoryChange(this.dataInfo.category);
-        }).catch(err => {
+        })
+        .catch(err => {
           this.loading = false;
         });
     },
     update() {
-       if(this.dataInfo.category=='image'){
-         if(this.dataInfo.attr_image_url==''){
-           this.errorMessage('必须上传一张图片');
-           return false;
-         } 
-       }
+      if (this.dataInfo.category == "image") {
+        if (this.dataInfo.attr_image_url == "") {
+          this.errorMessage("必须上传一张图片");
+          return false;
+        }
+      }
       this.getParam();
       this.updateDataInfo(this.$api.adUpdate, this.dataInfo, "list");
     },
     add(state) {
-       if(this.dataInfo.category=='image'){
-         if(this.dataInfo.attr_image_url==''){
-           this.errorMessage('必须上传一张图片');
-           return false;
-         } 
-       }
+      if (this.dataInfo.category == "image") {
+        if (this.dataInfo.attr_image_url == "") {
+          this.errorMessage("必须上传一张图片");
+          return false;
+        }
+      }
 
       this.getParam();
-      this.saveDataInfo(state,this.$api.adSave, this.dataInfo, "list");
-    },
+      this.saveDataInfo(state, this.$api.adSave, this.dataInfo, "list");
+    }
   },
   created() {
     //初始获取数据
@@ -339,52 +339,53 @@ export default {
 };
 </script>
 <style >
-.el-date-editor .el-range-separator{
- margin-top: -1px
+.el-date-editor .el-range-separator {
+  margin-top: -1px;
 }
-.el-date-editor .el-range-separator{
+.el-date-editor .el-range-separator {
   width: 6%;
 }
-.content-div{
+.content-div {
   margin-bottom: 0px;
   padding: 15px 0;
   width: 100%;
 }
-.text-color{
+.text-color {
   top: -10px;
 }
-.el-color-picker,.el-color-picker__trigger{
+.el-color-picker,
+.el-color-picker__trigger {
   width: 32px;
   height: 32px;
 }
-.cms-col2{
+.cms-col2 {
   width: 20%;
 }
-.cms-col4{
+.cms-col4 {
   width: 40%;
 }
-.cms-col6{
+.cms-col6 {
   width: 60%;
 }
-.content-div .el-form-item{
+.content-div .el-form-item {
   float: left;
 }
-.text-color-item{
-  height: 63px
-}
-.content-div .gray{
-  display: inline-block;
-}
-.flex-50{
+.text-color-item {
   height: 63px;
 }
-.upload{
+.content-div .gray {
+  display: inline-block;
+}
+.flex-50 {
+  height: 63px;
+}
+.upload {
   height: 161px;
 }
-.upload .el-form-item__label{
+.upload .el-form-item__label {
   margin-top: 49px;
 }
-.code-area{
-   height: 110px;
+.code-area {
+  height: 110px;
 }
 </style>

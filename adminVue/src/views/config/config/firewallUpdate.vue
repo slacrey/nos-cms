@@ -46,18 +46,18 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/form';
+import listMixins from "@/mixins/form";
 import axios from "axios";
 import va from "@/rules";
 export default {
-    mixins:[listMixins],
+  mixins: [listMixins],
   data() {
-     let self = this;
+    let self = this;
     function password() {
       return {
         validator: (rule, value, callback) => {
-            self.$refs.form.validateField("confirmPassword");     
-            callback();
+          self.$refs.form.validateField("confirmPassword");
+          callback();
         },
         trigger: "blur"
       };
@@ -66,7 +66,7 @@ export default {
       return {
         validator: (rule, value, callback) => {
           if (value !== self.dataInfo.password) {
-            callback(new Error('前后密码不一致'));
+            callback(new Error("前后密码不一致"));
           } else {
             callback();
           }
@@ -76,80 +76,100 @@ export default {
     }
     let required = va.required();
     let number = va.number();
-    let spot='点';  
+    let spot = "点";
     return {
-      params: {//只需要业务参数
+      params: {
+        //只需要业务参数
         queryUsername: "",
-        https:""
+        https: ""
       },
       rules: {
         //校验规则
         password: [password()],
         confirmPassword: [confirmPassword()],
-        valPassword:[required]
-
+        valPassword: [required]
       },
-      hoursList:[0+spot,1+spot,2+spot,3+spot,4+spot,5+spot,6+spot,7+spot,8+spot,9+spot,10+spot,11+spot,12+spot
-       ,13+spot,14+spot,15+spot,16+spot,17+spot,18+spot,19+spot,20+spot,21+spot,22+spot,23+spot 
+      hoursList: [
+        0 + spot,
+        1 + spot,
+        2 + spot,
+        3 + spot,
+        4 + spot,
+        5 + spot,
+        6 + spot,
+        7 + spot,
+        8 + spot,
+        9 + spot,
+        10 + spot,
+        11 + spot,
+        12 + spot,
+        13 + spot,
+        14 + spot,
+        15 + spot,
+        16 + spot,
+        17 + spot,
+        18 + spot,
+        19 + spot,
+        20 + spot,
+        21 + spot,
+        22 + spot,
+        23 + spot
       ],
-      weekLiset:[
-        '星期一',
-        '星期二',
-        '星期三',
-        '星期四',
-        '星期五',
-        '星期六',
-        '星期天',
+      weekLiset: [
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+        "星期天"
       ],
-      hours:[],
-      weeks:[],
+      hours: [],
+      weeks: []
     };
   },
-     methods:{
-        getHours(value){
-             this.hours= value;
-        },
-        getWeeks(value){
-              this.weeks= value;
-        },
-        getDataInfo(){
-        let api = this.$api; //API地址
-        axios
+  methods: {
+    getHours(value) {
+      this.hours = value;
+    },
+    getWeeks(value) {
+      this.weeks = value;
+    },
+    getDataInfo() {
+      let api = this.$api; //API地址
+      axios
         .all([
-             axios.post(api.configFirewallGet), //axios批量发送请求
+          axios.post(api.configFirewallGet) //axios批量发送请求
         ])
         .then(
-            axios.spread((firewall)=>{
-                this.dataInfo=firewall.body;
-                this.dataInfo.password='';
-                this.dataInfo.confirmPassword='';
-                this.$refs["form"].resetFields();
-                this.loading = false;
-            })
+          axios.spread(firewall => {
+            this.dataInfo = firewall.body;
+            this.dataInfo.password = "";
+            this.dataInfo.confirmPassword = "";
+            this.$refs["form"].resetFields();
+            this.loading = false;
+          })
         )
         .catch(err => {
           this.loading = false;
         });
-        },
-        update() {
-            let res={};
-            for(let x in this.dataInfo){
-                res[x]=this.dataInfo[x]
-            }
-            res.hours=res.hours.join(',');
-            res.weeks=res.weeks.join(',');
-             for(let i in res){
-                if((typeof res[i])=='object'){
-                    delete res[i]
-                }
-             } 
-            console.log(this.dataInfo)
-            console.log(res)   
-            this.updateDataInfo(this.$api.configFirewallUpdate, res, "");
+    },
+    update() {
+      let res = {};
+      for (let x in this.dataInfo) {
+        res[x] = this.dataInfo[x];
+      }
+      res.hours = res.hours.join(",");
+      res.weeks = res.weeks.join(",");
+      for (let i in res) {
+        if (typeof res[i] == "object") {
+          delete res[i];
         }
-        
+      }
+      this.updateDataInfo(this.$api.configFirewallUpdate, res, "");
+    }
   },
-  created(){
+  created() {
     //初始获取数据
     this.getDataInfo(this.id);
   }
@@ -157,5 +177,4 @@ export default {
 </script>
 
 <style>
-
 </style>

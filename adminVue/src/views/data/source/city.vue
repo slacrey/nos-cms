@@ -250,9 +250,9 @@ function convertData(data) {
     if (geoCoord) {
       res.push({
         name: data[i].name,
-        
+
         value: geoCoord.concat(data[i].value)
-      }); 
+      });
     }
   }
   return res;
@@ -270,17 +270,17 @@ export default {
         statisDay: "",
         end: ""
       },
-      time:'',
-      date:{
-          year:'',
-          month:'',
-          day:''
+      time: "",
+      date: {
+        year: "",
+        month: "",
+        day: ""
       },
-       totalMap:[],
-       sum:0,
-      ipsum:0,
-      fksum:0,
-      list:[],
+      totalMap: [],
+      sum: 0,
+      ipsum: 0,
+      fksum: 0,
+      list: [],
       option: {
         tooltip: {},
         visualMap: {
@@ -334,9 +334,7 @@ export default {
             type: "pie",
             radius: "55%",
             radius: ["50%", "70%"],
-            data: [
-             
-            ]
+            data: []
           }
         ],
         color: ["#56dea0", "#ffbe60", "#fa99cb", "#46d7e8", "#86c0e9"]
@@ -346,54 +344,56 @@ export default {
   methods: {
     rangeTime(val) {
       //格式化时间
-      if(val!=null){
+      if (val != null) {
         this.params.begin = val[0];
         this.params.end = val[1];
         this.params.flag = 3;
-         if(val[0]===val[1]){
-              this.time=val[0];   
-          }else{
-              this.time=val[0]+'-'+val[1];   
-          }   
-      }else{
-        this.params.begin = '';
-        this.params.end = '';
+        if (val[0] === val[1]) {
+          this.time = val[0];
+        } else {
+          this.time = val[0] + "-" + val[1];
+        }
+      } else {
+        this.params.begin = "";
+        this.params.end = "";
         this.params.flag = 4;
-         this.time=this.date.year+'-'+this.date.month+'-'+this.date.day
-      }  
+        this.time =
+          this.date.year + "-" + this.date.month + "-" + this.date.day;
+      }
       this.getDataInfo();
     },
     query(val) {
       this.dateArr = "";
       this.params.begin = "";
       this.params.end = "";
-       if(val===4){
-            this.time=this.date.year+'-'+this.date.month+'-'+this.date.day
-        }
-        if(val===1){
-            this.time=this.date.year+'-'+this.date.month
-        }
-        if(val===2){
-            this.time=this.date.year
-        }
+      if (val === 4) {
+        this.time =
+          this.date.year + "-" + this.date.month + "-" + this.date.day;
+      }
+      if (val === 1) {
+        this.time = this.date.year + "-" + this.date.month;
+      }
+      if (val === 2) {
+        this.time = this.date.year;
+      }
       this.getDataInfo();
     },
     getDataInfo() {
-      axios.post(this.$api.flowAreaList, this.params).then(res => { 
-       let data = [];
+      axios.post(this.$api.flowAreaList, this.params).then(res => {
+        let data = [];
         for (let key in res.body.totalMap) {
           data.push({
             name: key,
             value: res.body.totalMap[key]
           });
         }
-          let jdata=[];
-        this.list=res.body.areaCountMap;
-        this.ipsum=0;
-        this.fksum=0;
-        for(let x in this.list){
-            this.ipsum+=this.list[x][1];
-            this.fksum+=this.list[x][2];
+        let jdata = [];
+        this.list = res.body.areaCountMap;
+        this.ipsum = 0;
+        this.fksum = 0;
+        for (let x in this.list) {
+          this.ipsum += this.list[x][1];
+          this.fksum += this.list[x][2];
         }
 
         for (let key in res.body.areaCountMap) {
@@ -402,14 +402,14 @@ export default {
             value: res.body.areaCountMap[key][0]
           });
         }
-       let zdata={};
+        let zdata = {};
         for (let key in jdata) {
-           zdata[jdata[key].name]=jdata[key].value
-        } 
-        this.totalMap=zdata;
-         this.sum=0;
-        for(let s in zdata){  
-          this.sum+=zdata[s];
+          zdata[jdata[key].name] = jdata[key].value;
+        }
+        this.totalMap = zdata;
+        this.sum = 0;
+        for (let s in zdata) {
+          this.sum += zdata[s];
         }
 
         let option = {
@@ -419,7 +419,8 @@ export default {
               coordinateSystem: "geo",
               data: convertData(data),
               symbolSize: 1,
-              symbol:"path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z",
+              symbol:
+                "path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z",
               symbolRotate: 35,
               label: {
                 normal: {
@@ -445,65 +446,63 @@ export default {
             }
           ]
         };
-        let pdata=[];
-        let len=0;
-        for(let i=0;i<data.length;i++){
-    		 let min=i;
-	             for(let j=i+1;j<data.length;j++){
-	                if(data[j]<data[min]){
-	                     min=j;
-	                }
-	             } 
-	             let temp=data[min];
-	             data[min]=data[i];
-	             data[i]=temp;
-    	  }
-console.log(data)
-        for(let x in data){
-            if(len<10){
-              pdata.push(data[x])
+        let pdata = [];
+        let len = 0;
+        for (let i = 0; i < data.length; i++) {
+          let min = i;
+          for (let j = i + 1; j < data.length; j++) {
+            if (data[j] < data[min]) {
+              min = j;
             }
-            len+=1
+          }
+          let temp = data[min];
+          data[min] = data[i];
+          data[i] = temp;
         }
-        
-        let pieOptions={
-            series: [
-                    {
-                        name: "来访地区",
-                        type: "pie",
-                        radius: "55%",
-                        radius: ["50%", "70%"],
-                        data:pdata
-                    }
-                 ],
+        for (let x in data) {
+          if (len < 10) {
+            pdata.push(data[x]);
+          }
+          len += 1;
         }
+
+        let pieOptions = {
+          series: [
+            {
+              name: "来访地区",
+              type: "pie",
+              radius: "55%",
+              radius: ["50%", "70%"],
+              data: pdata
+            }
+          ]
+        };
         this.chartPie.setOption(pieOptions);
         this.chartMap.setOption(option);
       });
     }
   },
   created() {
-     let now = new Date();
+    let now = new Date();
     let Y = now.getFullYear();
     let m = now.getMonth() + 1;
     let d = now.getDate();
-    this.date.year=Y;
-    this.date.month=m;
-    this.date.day=d;
-    this.year=Y;
-    this.month=m;
-    this.time=Y+'-'+m+'-'+d
+    this.date.year = Y;
+    this.date.month = m;
+    this.date.day = d;
+    this.year = Y;
+    this.month = m;
+    this.time = Y + "-" + m + "-" + d;
     this.getDataInfo();
   },
   mounted() {
     this.chartMap = echarts.init(document.getElementById("charts"));
     this.chartPie = echarts.init(document.getElementById("chartPie"));
     this.chartPie.setOption(this.chartPieOptions);
-      this.chartMap.setOption(this.option);
+    this.chartMap.setOption(this.option);
   }
 };
 </script>
 
 <style>
-
 </style>

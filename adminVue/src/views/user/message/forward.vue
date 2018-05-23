@@ -38,77 +38,75 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/form';
+import listMixins from "@/mixins/form";
 import axios from "axios";
 import va from "@/rules";
 import api from "@/api/api";
 export default {
-    mixins:[listMixins],
+  mixins: [listMixins],
   data() {
-    
     let self = this;
-     function checkName() {//用户名验证
-    return {
+    function checkName() {
+      //用户名验证
+      return {
         validator: (rule, value, callback) => {
-            axios.post(api.memberCheckName,{username:value}).then(res=>{
-                if(res.code=='200'){
-                    if (res.body.result){
-                        callback(new Error('用户名不存在'))
-                    }else{
-                        callback();      
-                    } 
-                }else{
-                    callback(new Error('服务器响应异常'));  
-                }      
-            })
-        }, trigger: 'blur'
-      }
-   }
-    let required = va.required('此项必填');
+          axios.post(api.memberCheckName, { username: value }).then(res => {
+            if (res.code == "200") {
+              if (res.body.result) {
+                callback(new Error("用户名不存在"));
+              } else {
+                callback();
+              }
+            } else {
+              callback(new Error("服务器响应异常"));
+            }
+          });
+        },
+        trigger: "blur"
+      };
+    }
+    let required = va.required("此项必填");
     return {
-      params: {//只需要业务参数
-      
+      params: {
+        //只需要业务参数
       },
       rules: {
         //校验规则
         msgTitle: [required],
-        username: [checkName()],
+        username: [checkName()]
       },
-     groups:[]
+      groups: []
     };
   },
-     methods:{
-         getRoleIds(value){
-               console.log(value);
-               
-         },
-        getDataInfo(id){
-        let api = this.$api; //API地址
-        axios
+  methods: {
+    getRoleIds(value) {
+      //console.log(value);
+    },
+    getDataInfo(id) {
+      let api = this.$api; //API地址
+      axios
         .all([
-             axios.post(api.messageForward, {id:id}), //axios批量发送请求
-             axios.post(api.groupList)
+          axios.post(api.messageForward, { id: id }), //axios批量发送请求
+          axios.post(api.groupList)
         ])
         .then(
-            axios.spread((message,groups)=>{
-                this.dataInfo=message.body;
-                this.groups=groups.body;
-                this.$refs["form"].resetFields();
-                this.loading = false;
-            })
+          axios.spread((message, groups) => {
+            this.dataInfo = message.body;
+            this.groups = groups.body;
+            this.$refs["form"].resetFields();
+            this.loading = false;
+          })
         )
         .catch(err => {
           this.loading = false;
         });
-      },
-        add(state) {
-              this.dataInfo['username']=this.dataInfo.msgReceiverUserName;
-            this.saveDataInfo(state,api.messageSend, this.dataInfo, "list");            
-        },
-    
-        
+    },
+    add(state) {
+      this.dataInfo["username"] = this.dataInfo.msgReceiverUserName;
+      this.saveDataInfo(state, api.messageSend, this.dataInfo, "list");
+    }
   },
-  created(){
+  created() {
     //初始获取数据
     this.getDataInfo(this.id);
   }
@@ -116,5 +114,4 @@ export default {
 </script>
 
 <style>
-
 </style>

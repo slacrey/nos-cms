@@ -49,29 +49,30 @@
 </template>
 
 <script>
-
 import cmsHeader from "@/components/header.vue";
 import cmsSubmenu from "@/components/subMenu.vue";
 import cmsTop from "@/components/top.vue";
-import axios from "axios"
+import axios from "axios";
 export default {
-  components: {cmsHeader, cmsSubmenu,cmsTop},
+  components: { cmsHeader, cmsSubmenu, cmsTop },
   data() {
-    var valOld=(rule, value, callback)=>{
-       if (value === "") {
+    var valOld = (rule, value, callback) => {
+      if (value === "") {
         callback(new Error("请输入旧密码"));
       } else {
-        axios.post('/api/member/personal/check_pwd',{origPwd:value}).then(res=>{
-              if(res.body.pass==true){
-                callback();
-              }else{
-                callback(new Error("原密码输入不正确"));
-              }
-        })
-      }     
+        axios
+          .post("/api/member/personal/check_pwd", { origPwd: value })
+          .then(res => {
+            if (res.body.pass == true) {
+              callback();
+            } else {
+              callback(new Error("原密码输入不正确"));
+            }
+          });
+      }
     };
 
-     var validatePass = (rule, value, callback) => {
+    var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
@@ -94,10 +95,11 @@ export default {
         newPwd2: ""
       },
       rules: {
-        origPwd:[{
-           validator: valOld,
+        origPwd: [
+          {
+            validator: valOld,
             trigger: "blur"
-        }  
+          }
         ],
         newPwd: [
           {
@@ -112,38 +114,38 @@ export default {
           }
         ]
       }
-    }
+    };
   },
-  methods:{
-     queryChange(){
-        let clientWidth=document.body.clientWidth;
-        let clientHeight=document.body.clientHeight;
-          $('.firstContainer').css('minHeight',(clientHeight-110)+'px');
-            $('.secondContainer').css('minHeight',(clientHeight-110)+'px');
-         if(clientWidth<1200){
-           this.$store.dispatch('setCollapse',true);
-         }else{
-            this.$store.dispatch('setCollapse',false);
-         }
-     }, 
-     rest(){
-	this.$refs["userInfo"].resetFields();
-    this.$store.dispatch('setPwd',false);
-      $("#slider").attr("class","right-sider"); 
-     },
-    changePwd(){
-        this.$refs["userInfo"].validate(valid => {
+  methods: {
+    queryChange() {
+      let clientWidth = document.body.clientWidth;
+      let clientHeight = document.body.clientHeight;
+      $(".firstContainer").css("minHeight", clientHeight - 110 + "px");
+      $(".secondContainer").css("minHeight", clientHeight - 110 + "px");
+      if (clientWidth < 1200) {
+        this.$store.dispatch("setCollapse", true);
+      } else {
+        this.$store.dispatch("setCollapse", false);
+      }
+    },
+    rest() {
+      this.$refs["userInfo"].resetFields();
+      this.$store.dispatch("setPwd", false);
+      $("#slider").attr("class", "right-sider");
+    },
+    changePwd() {
+      this.$refs["userInfo"].validate(valid => {
         if (valid) {
-        
-        axios.post('/api/member/personal/update',this.userInfo)
+          axios
+            .post("/api/member/personal/update", this.userInfo)
             .then(res => {
               if (res.code == "200") {
                 this.$message.success("修改成功");
                 localStorage.removeItem("sessionKey");
                 localStorage.removeItem("userName");
                 this.$router.push("/login");
-              } else{
-                  this.$message.error("修改失败");
+              } else {
+                this.$message.error("修改失败");
               }
             })
             .catch(res => {
@@ -154,26 +156,25 @@ export default {
         }
       });
     }
-
   },
-  beforeRouteLeave (to, from, next) {
-          this.$store.dispatch('setPwd',false);
-          next();
-      },
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch("setPwd", false);
+    next();
+  },
   mounted() {
     const self = this;
     $("#main").slimScroll({
-        height: "100%",
-        width: "auto",
-        wrapperClass: "asidebar",
-        color: "gray",
-        opacity: 1
-      });
-     
-   self.queryChange();
+      height: "100%",
+      width: "auto",
+      wrapperClass: "asidebar",
+      color: "gray",
+      opacity: 1
+    });
+
+    self.queryChange();
     window.onresize = () => {
       return (() => {
-          self.queryChange();
+        self.queryChange();
       })();
     };
   }
@@ -181,22 +182,22 @@ export default {
 </script>
  <style lang="scss" scoped>
 .el-header {
-   padding: 0;
-   position: fixed;
-   top:0;
-   width: 100%;
-   z-index:999;
-   -webkit-transform: translateZ(0);
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  -webkit-transform: translateZ(0);
 }
-.cms-left-aside{
-    width: 220px;
-    z-index: 10;
-    background-color:rgb(24, 138, 226);
-    bottom: 0;
-    margin-top: 0;
-    padding-bottom: 30px;
-    position: fixed;
-    top: 60px; 
+.cms-left-aside {
+  width: 220px;
+  z-index: 10;
+  background-color: rgb(24, 138, 226);
+  bottom: 0;
+  margin-top: 0;
+  padding-bottom: 30px;
+  position: fixed;
+  top: 60px;
 }
 
 .icon-home {
@@ -233,6 +234,4 @@ export default {
   top: 60px;
   height: 100%;
 }
-
-
 </style>

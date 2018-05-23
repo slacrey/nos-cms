@@ -150,7 +150,7 @@ export default {
       params: {
         modelId: 0,
         isChannel: false, //是否为栏目模型
-        modelName:'',
+        modelName: ""
       },
       defaultTypeList: defaultContentModel,
       copyDefaultTypeList: [],
@@ -240,7 +240,7 @@ export default {
       });
     },
     deleteItems(defObj) {
-      console.log(defObj);
+      // console.log(defObj);
       let ids = [];
       for (let i in defObj) {
         if (this.defaultParams.indexOf(defObj[i].field) < 0) {
@@ -328,7 +328,7 @@ export default {
     this.modelName = this.$route.query.modelName;
     this.params.modelId = modelId;
     this.params.isChannel = isChannel;
-    this.params.modelName=this.modelName;    
+    this.params.modelName = this.modelName;
     this.getItems();
   },
   mounted() {}

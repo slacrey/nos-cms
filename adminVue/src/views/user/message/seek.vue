@@ -83,7 +83,6 @@ export default {
   },
   created(){
     //初始获取数据
-    console.log(this.$route.query.box)
     this.getDataInfo(this.id);
   }
 };

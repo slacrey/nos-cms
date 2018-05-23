@@ -359,97 +359,96 @@ export default {
   mixins: [formMixins],
   data() {
     let self = this;
-    let required = va.required('此项必填');
-    let number = va.number('只能输入数字');
-    let string = va.string('只能输入英文字母');
+    let required = va.required("此项必填");
+    let number = va.number("只能输入数字");
+    let string = va.string("只能输入英文字母");
     return {
       params: this.$route.query, //前一个页面带过来的数据
       rules: {
-        parentId:[required],
-         title:[required],
-          typeId:[required,number]
+        parentId: [required],
+        title: [required],
+        typeId: [required, number]
       },
-      fieldRequied:[
-        { required: true, message: '此项必填', trigger: 'change' }
+      fieldRequied: [
+        { required: true, message: "此项必填", trigger: "change" }
       ],
-      parentId:'',
+      parentId: "",
       dataState: false,
-      isLink:false,//是否开启外部链接
-      hasContentImg:false,
-      hasTitleImg:false,
+      isLink: false, //是否开启外部链接
+      hasContentImg: false,
+      hasTitleImg: false,
       channelList: [], //栏目列表
       itemList: [], //动态列表
       topicList: [], //专题列表
       typeList: [], //内容类型列表
       groupList: [], //用户组列表
       workflowList: [], //工作流
-      tplAll:[],//所有模型
-      chargeMap:[],
-      contentInfo:{},
+      tplAll: [], //所有模型
+      chargeMap: [],
+      contentInfo: {},
       info: {
         parentId: "", //上层栏目id,
-        channelId:'',//栏目id
-        channelIds:[],//副栏目
-        bold:false,
-        topicIds:'',//专题id
-        link:'',//外部链接地址
-        originUrl:'',//来源地址
-        topLevelDate:'',
-        sortDate:'',
-        releaseDate:'',
-        pigeonholeDate:'',
-        typeId:'',
-        recommend:false,
-        recommendLevel:1,
-        draft:false,
-        tplContent:'',
-        tplMobileContent:'',
-        charge:false,
-        attachments:[],
-        attachmentNames:[],//附件名称
-        attachmentPaths:[],//附件地址
-        mediaPath:'',//媒体路径
-        mediaType:'CK', //媒体类型
-        pics:[],
-        picPaths:[],//图片地址
-        picDescs:[],//图片描述
-        chargeAmount:'',//总费
-        rewardPattern:false,//奖励模式
-        rewardFix:'',//固定奖
-        rewardRandomMin:0,//随机奖励最小值
-        rewardRandomMax:10,//随机奖励最大值
-     
-     
-      
+        channelId: "", //栏目id
+        channelIds: [], //副栏目
+        bold: false,
+        topicIds: "", //专题id
+        link: "", //外部链接地址
+        originUrl: "", //来源地址
+        topLevelDate: "",
+        sortDate: "",
+        releaseDate: "",
+        pigeonholeDate: "",
+        typeId: "",
+        recommend: false,
+        recommendLevel: 1,
+        draft: false,
+        tplContent: "",
+        tplMobileContent: "",
+        charge: false,
+        attachments: [],
+        attachmentNames: [], //附件名称
+        attachmentPaths: [], //附件地址
+        mediaPath: "", //媒体路径
+        mediaType: "CK", //媒体类型
+        pics: [],
+        picPaths: [], //图片地址
+        picDescs: [], //图片描述
+        chargeAmount: "", //总费
+        rewardPattern: false, //奖励模式
+        rewardFix: "", //固定奖
+        rewardRandomMin: 0, //随机奖励最小值
+        rewardRandomMax: 10 //随机奖励最大值
       },
-        isTypeImg:false,
-        props: {
-          label: "name",
-          children:"zones",
-          isLeaf: "isChild",
-          id: "id"
-        },
-      channelVisble:false,//选择模型模版弹窗
-      ue:[],
+      isTypeImg: false,
+      props: {
+        label: "name",
+        children: "zones",
+        isLeaf: "isChild",
+        id: "id"
+      },
+      channelVisble: false, //选择模型模版弹窗
+      ue: []
     };
   },
   methods: {
-      back(){
-           this.routerLink('/content/list','list',this.parentId); 
-     },  
-     getChannelId(data,node){
-       this.routerLink('/content/list','list',data.id);  
+    back() {
+      this.routerLink("/content/list", "list", this.parentId);
     },
-    checkChange(node, checkStatus, childStatus){//副栏目选择
-    console.log(this.$refs["channelTree"].getCheckedKeys());
-       this.info.channelIds=this.$refs["channelTree"].getCheckedKeys();//获取副栏目
+    getChannelId(data, node) {
+      this.routerLink("/content/list", "list", data.id);
     },
-    handleClose(){},
-    ansyTree(node, resolve) {//异步加载栏目树形结构
+    checkChange(node, checkStatus, childStatus) {
+      //副栏目选择
+      //console.log(this.$refs["channelTree"].getCheckedKeys());
+      this.info.channelIds = this.$refs["channelTree"].getCheckedKeys(); //获取副栏目
+    },
+    handleClose() {},
+    ansyTree(node, resolve) {
+      //异步加载栏目树形结构
       if (node.level === 0) {
         return resolve([
           {
-            name: '根目录',
+            name: "根目录",
             id: "",
             isChild: true
           }
@@ -470,59 +469,66 @@ export default {
             return resolve(data);
           });
       }
-      },
-    getTypeId(val){
-          axios.post(this.$api.typeGet,{id:val}).then(res=>{
-              if(res.code=='200'){
-                this.isTypeImg=res.body.hasImage;
-              }   
-          })
     },
-    getPath(event){
-        if(event.target.value!=''){
-            axios.post(this.$api.channelCreatPath,{name:event.target.value}).then(res=>{
-                this.info.path=res.body;
-            }) 
+    getTypeId(val) {
+      axios.post(this.$api.typeGet, { id: val }).then(res => {
+        if (res.code == "200") {
+          this.isTypeImg = res.body.hasImage;
         }
+      });
     },
-     getFieldImg(path,field,index,pindex){
-      this.info[field]=path;
+    getPath(event) {
+      if (event.target.value != "") {
+        axios
+          .post(this.$api.channelCreatPath, { name: event.target.value })
+          .then(res => {
+            this.info.path = res.body;
+          });
+      }
     },
-    getAttachments(res){
-         this.info.attachments=res;//附件对象数组 
+    getFieldImg(path, field, index, pindex) {
+      this.info[field] = path;
     },
-    getPics(res){//图片
-     this.info.pics=res;//附件对象数组 
+    getAttachments(res) {
+      this.info.attachments = res; //附件对象数组
     },
-   
-     getDocTxt(txt,index){
-      this.ue[index].execCommand('inserthtml',txt);
+    getPics(res) {
+      //图片
+      this.info.pics = res; //附件对象数组
     },
-    getMediaPath(path,field){//动态媒体路径
 
-         this.info[field]=path;//媒体路径   
+    getDocTxt(txt, index) {
+      this.ue[index].execCommand("inserthtml", txt);
     },
-    getUeditor(ue,index){
-         this.ue[index]=ue;//获取ue实例 
+    getMediaPath(path, field) {
+      //动态媒体路径
+
+      this.info[field] = path; //媒体路径
     },
-    getTitleImg(path){//标题图
-      this.info.titleImg=path;
+    getUeditor(ue, index) {
+      this.ue[index] = ue; //获取ue实例
     },
-    getContentImg(path){//内容图
-        this.info.contentImg=path;
+    getTitleImg(path) {
+      //标题图
+      this.info.titleImg = path;
     },
-    getTypeImg(path){//类型图
-      this.info.typeImg=path;
+    getContentImg(path) {
+      //内容图
+      this.info.contentImg = path;
     },
-    getContentInfo(id){
-       //获取栏目默认信息
+    getTypeImg(path) {
+      //类型图
+      this.info.typeImg = path;
+    },
+    getContentInfo(id) {
+      //获取栏目默认信息
       axios.post(this.$api.contentGet, { id: id }).then(res => {
-         this.contentInfo = res.body;
-         this.params.modelId = res.body.modelId;
-         this.info.modelId = res.body.modelId;
-         this.params.parentId = res.body.channelId;   
-         this.parentId= res.body.channelId;
-         this.getDataInfo();
+        this.contentInfo = res.body;
+        this.params.modelId = res.body.modelId;
+        this.info.modelId = res.body.modelId;
+        this.params.parentId = res.body.channelId;
+        this.parentId = res.body.channelId;
+        this.getDataInfo();
       });
     },
     getDataInfo(id) {
@@ -532,201 +538,225 @@ export default {
         modelId: this.params.modelId,
         isChannel: false
       };
-      axios.post(this.$api.itemList,modelParams)
+      axios
+        .post(this.$api.itemList, modelParams)
         .then(res => {
-          this.loading=false;
+          this.loading = false;
           this.$refs["form"].resetFields();
-          this.info.titleImg='';//滞空处理
-          this.info.contentImg='';//滞空处理
-          let itemList = res.body;//渲染数据字段模型 
+          this.info.titleImg = ""; //滞空处理
+          this.info.contentImg = ""; //滞空处理
+          let itemList = res.body; //渲染数据字段模型
           for (let i in itemList) {
-                if (itemList[i].custom) {
-                  //判断是否是系统字段
-                  if (itemList[i].dataType == 7) {
-                    //判断是否为多选框
-                    this.$set(this.info,"attr_" + itemList[i].field,this.contentInfo["attr_" + itemList[i].field]); //转换为数组
-                  } else {
-                    this.$set(this.info, "attr_" + itemList[i].field, this.contentInfo["attr_" + itemList[i].field]);
-                  }
-                } else {
-                    if (itemList[i].dataType == 7){
-                          this.$set(this.info, itemList[i].field,this.contentInfo[itemList[i].field]);
-                    }else{
-                        this.$set(this.info, itemList[i].field,this.contentInfo[itemList[i].field]);
-                    }     
-                  }
+            if (itemList[i].custom) {
+              //判断是否是系统字段
+              if (itemList[i].dataType == 7) {
+                //判断是否为多选框
+                this.$set(
+                  this.info,
+                  "attr_" + itemList[i].field,
+                  this.contentInfo["attr_" + itemList[i].field]
+                ); //转换为数组
+              } else {
+                this.$set(
+                  this.info,
+                  "attr_" + itemList[i].field,
+                  this.contentInfo["attr_" + itemList[i].field]
+                );
+              }
+            } else {
+              if (itemList[i].dataType == 7) {
+                this.$set(
+                  this.info,
+                  itemList[i].field,
+                  this.contentInfo[itemList[i].field]
+                );
+              } else {
+                this.$set(
+                  this.info,
+                  itemList[i].field,
+                  this.contentInfo[itemList[i].field]
+                );
+              }
             }
-         this.itemList = itemList;          
-         this.getAllList();//获取辅助字段列表
-         this.getDefaultInfo(this.params.id);//数据回填  
+          }
+          this.itemList = itemList;
+          this.getAllList(); //获取辅助字段列表
+          this.getDefaultInfo(this.params.id); //数据回填
         })
         .catch(err => {
           this.loading = false;
         });
     },
-    getDefaultInfo(id){//数据回填
-                this.info.bold=this.contentInfo.bold;
-                this.info.originUrl= this.contentInfo.originUrl;
-                this.info.sortDate=this.contentInfo.sortDate;
-                this.info.topLevelDate=this.contentInfo.topLevelDate;
-                this.info.pigeonholeDate=this.contentInfo.pigeonholeDate;
-                this.info.viewGroupIds=this.contentInfo.viewGroupIds;
-                this.info.typeId=this.contentInfo.typeId;
-                this.info.downNeed=this.contentInfo.downNeed;
-                  
-                this.info.recommend=this.contentInfo.recommend;
-                this.info.recommendLevel=this.contentInfo.recommendLevel;
-                this.info.draft=this.contentInfo.draft;
-                this.info.topicIds=this.contentInfo.topicIds[0];
-                this.info.channelIds=this.contentInfo.channelIds;  
-                this.info.mediaPath=this.contentInfo.mediaPath;
-                this.info.mediaType=this.contentInfo.mediaType;
-                this.info.chargeAmount=this.contentInfo.chargeAmount;
-                this.info.charge=this.contentInfo.charge;
-                this.$set(this.info,'rewardPattern',this.contentInfo.rewardPattern);
-                this.$set(this.info,'rewardRandomMax',this.contentInfo.rewardRandomMax);
-                this.$set(this.info,'rewardRandomMin',this.contentInfo.rewardRandomMin);
-                this.getTypeId(this.info.typeId);
-                this.$set(this.info,'attachments',[]);
-                this.$set(this.info,'pics',[]);
-                      if(this.contentInfo.link!=''){
-                            this.isLink=true;
-                            this.info.link= this.contentInfo.link;
-                    }
-                    
-                    if(this.contentInfo.rewardFix.length>0){
-                       this.chargeMap= this.contentInfo.rewardFix;
-                    }else{
-                        axios.post(this.$api.configContentChargeGet).then(res=>{
-                               let aa=[];
-                                for(let i in res.body.fixMap){
-                                  aa.push(res.body.fixMap[i].value)
-                                }
-                            this.chargeMap = aa; //打赏固定金额
-                        })
-                    }
-                   if(this.contentInfo.attachArr.length>0){
-                        for(let i in this.contentInfo.attachArr){
-                                    let obj={  name:this.contentInfo.attachArr[i].attachmentNames,
-                                               path:this.contentInfo.attachArr[i].attachmentPaths
-                                          };
-                                  this.info.attachments.push(obj)
-                            }
-                          }
-                   if(this.contentInfo.picArr.length>0){
-                        for(let j in  this.contentInfo.picArr){
-                                let obj={
-                                    name:this.contentInfo.picArr[j].picDescs,
-                                    path:this.contentInfo.picArr[j].picPaths 
-                                  };
-                                  this.info.pics.push(obj)
-                        }
-                    }     
-        this.dataState=true;
+    getDefaultInfo(id) {
+      //数据回填
+      this.info.bold = this.contentInfo.bold;
+      this.info.originUrl = this.contentInfo.originUrl;
+      this.info.sortDate = this.contentInfo.sortDate;
+      this.info.topLevelDate = this.contentInfo.topLevelDate;
+      this.info.pigeonholeDate = this.contentInfo.pigeonholeDate;
+      this.info.viewGroupIds = this.contentInfo.viewGroupIds;
+      this.info.typeId = this.contentInfo.typeId;
+      this.info.downNeed = this.contentInfo.downNeed;
+
+      this.info.recommend = this.contentInfo.recommend;
+      this.info.recommendLevel = this.contentInfo.recommendLevel;
+      this.info.draft = this.contentInfo.draft;
+      this.info.topicIds = this.contentInfo.topicIds[0];
+      this.info.channelIds = this.contentInfo.channelIds;
+      this.info.mediaPath = this.contentInfo.mediaPath;
+      this.info.mediaType = this.contentInfo.mediaType;
+      this.info.chargeAmount = this.contentInfo.chargeAmount;
+      this.info.charge = this.contentInfo.charge;
+      this.$set(this.info, "rewardPattern", this.contentInfo.rewardPattern);
+      this.$set(this.info, "rewardRandomMax", this.contentInfo.rewardRandomMax);
+      this.$set(this.info, "rewardRandomMin", this.contentInfo.rewardRandomMin);
+      this.getTypeId(this.info.typeId);
+      this.$set(this.info, "attachments", []);
+      this.$set(this.info, "pics", []);
+      if (this.contentInfo.link != "") {
+        this.isLink = true;
+        this.info.link = this.contentInfo.link;
+      }
+
+      if (this.contentInfo.rewardFix.length > 0) {
+        this.chargeMap = this.contentInfo.rewardFix;
+      } else {
+        axios.post(this.$api.configContentChargeGet).then(res => {
+          let aa = [];
+          for (let i in res.body.fixMap) {
+            aa.push(res.body.fixMap[i].value);
+          }
+          this.chargeMap = aa; //打赏固定金额
+        });
+      }
+      if (this.contentInfo.attachArr.length > 0) {
+        for (let i in this.contentInfo.attachArr) {
+          let obj = {
+            name: this.contentInfo.attachArr[i].attachmentNames,
+            path: this.contentInfo.attachArr[i].attachmentPaths
+          };
+          this.info.attachments.push(obj);
+        }
+      }
+      if (this.contentInfo.picArr.length > 0) {
+        for (let j in this.contentInfo.picArr) {
+          let obj = {
+            name: this.contentInfo.picArr[j].picDescs,
+            path: this.contentInfo.picArr[j].picPaths
+          };
+          this.info.pics.push(obj);
+        }
+      }
+      this.dataState = true;
     },
     getAllList() {
       //所有辅助请求
       let api = this.$api; //API地址
-       axios.post(api.channelGet, { id: this.params.parentId }).then(res => {
-          this.hasContentImg=res.body.hasContentImg;
-            this.hasTitleImg=res.body.hasTitleImg
-          if (this.params.parentId != "") {
-            //栏目数据回填
-            this.info.parentId = res.body.nodeIds; //层级id[]
-          } else {
-            this.info.parentId = [""]; //层级id[]
-          }
-         
-        });
-     
+      axios.post(api.channelGet, { id: this.params.parentId }).then(res => {
+        this.hasContentImg = res.body.hasContentImg;
+        this.hasTitleImg = res.body.hasTitleImg;
+        if (this.params.parentId != "") {
+          //栏目数据回填
+          this.info.parentId = res.body.nodeIds; //层级id[]
+        } else {
+          this.info.parentId = [""]; //层级id[]
+        }
+      });
+
       axios
         .all([
           axios.post(api.fullTextSearchChannelList, { hasContentOnly: true }), //栏目列表
           axios.post(api.topicListAll, { channelId: this.params.parentId }), //关联专题列表
-          axios.post(api.typeList, { containDisabled:false }), //内容类型列表
+          axios.post(api.typeList, { containDisabled: false }), //内容类型列表
           axios.post(api.groupList), //会员组列表
-          axios.post(api.tplModelList,{modelId:this.params.modelId}),  
+          axios.post(api.tplModelList, { modelId: this.params.modelId })
         ])
         .then(
-          axios.spread((channels,topicList,type,groups,tplAll) => {
+          axios.spread((channels, topicList, type, groups, tplAll) => {
             this.channelList = this.channelList.concat(channels.body); //栏目列表
-            this.topicList=topicList.body;//关联专题列表
+            this.topicList = topicList.body; //关联专题列表
             this.typeList = type.body; //内容类型列表
             this.groupList = groups.body; //会员组列表
-            this.tplAll=tplAll.body;//所有模型  
+            this.tplAll = tplAll.body; //所有模型
           })
         )
         .catch(err => {
           this.loading = false;
         });
     },
-    getEditorContent(){
+    getEditorContent() {
       //处理一下栏目的富文本内容,固定只有四个
-       if(this.info.txt!=undefined){
-        
-          this.info.txt=this.ue[0].getContent();
-       }
-        if(this.info.txt1!=undefined){
-           this.info.txt1=this.ue[1].getContent();  
-       }
-        if(this.info.txt2 !=undefined){
-         this.info.txt2=this.ue[2].getContent();  
-       }
-        if(this.info.txt3 !=undefined){
-           this.info.txt3=this.ue[3].getContent();   
-       } 
+      if (this.info.txt != undefined) {
+        this.info.txt = this.ue[0].getContent();
+      }
+      if (this.info.txt1 != undefined) {
+        this.info.txt1 = this.ue[1].getContent();
+      }
+      if (this.info.txt2 != undefined) {
+        this.info.txt2 = this.ue[2].getContent();
+      }
+      if (this.info.txt3 != undefined) {
+        this.info.txt3 = this.ue[3].getContent();
+      }
     },
-    getParams(){//获取到处理完成给后台提交的对象
-            let params={} //数组对象换成字符串
-            let picPaths=[];
-            let picDescs=[];
-            let attachmentNames=[];
-            let attachmentPaths=[];
-            this.getEditorContent(); 
-           this.info.rewardFix=this.chargeMap;           
-            for(let j =0; j<this.info.pics.length;j++){//处理图集
-                picPaths.push(this.info.pics[j].path);
-                picDescs.push(this.info.pics[j].name);
-            }
-              for(let i in this.info.attachments){//处理附件
-                attachmentNames.push(this.info.attachments[i].name);
-                attachmentPaths.push(this.info.attachments[i].path);
-            } 
-              this.info.picPaths=picPaths;
-              this.info.picDescs=picDescs;
-              this.info.attachmentNames=attachmentNames;
-              this.info.attachmentPaths=attachmentPaths;
-                for(let key in this.info){
-                  if(this.info[key] instanceof Array){       
-                    params[key]=this.info[key].join(',');
-                  }else{
-                      params[key]=this.info[key];
-                  }
-                }  
-              delete params.attachments;
-              delete params.pics; 
-            params.channelId=params.parentId.substring(params.parentId.lastIndexOf(',')+1);
-            params.id=this.params.id;
-        return params;
-       
+    getParams() {
+      //获取到处理完成给后台提交的对象
+      let params = {}; //数组对象换成字符串
+      let picPaths = [];
+      let picDescs = [];
+      let attachmentNames = [];
+      let attachmentPaths = [];
+      this.getEditorContent();
+      this.info.rewardFix = this.chargeMap;
+      for (let j = 0; j < this.info.pics.length; j++) {
+        //处理图集
+        picPaths.push(this.info.pics[j].path);
+        picDescs.push(this.info.pics[j].name);
+      }
+      for (let i in this.info.attachments) {
+        //处理附件
+        attachmentNames.push(this.info.attachments[i].name);
+        attachmentPaths.push(this.info.attachments[i].path);
+      }
+      this.info.picPaths = picPaths;
+      this.info.picDescs = picDescs;
+      this.info.attachmentNames = attachmentNames;
+      this.info.attachmentPaths = attachmentPaths;
+      for (let key in this.info) {
+        if (this.info[key] instanceof Array) {
+          params[key] = this.info[key].join(",");
+        } else {
+          params[key] = this.info[key];
+        }
+      }
+      delete params.attachments;
+      delete params.pics;
+      params.channelId = params.parentId.substring(
+        params.parentId.lastIndexOf(",") + 1
+      );
+      params.id = this.params.id;
+      return params;
     },
-     update(state){//修改栏目   
-          let params = this.getParams();
-          if (params.channelId == "") {
-            this.errorMessage("请选择一个栏目");
-            return false;
-          }
-          let form = this.$refs["form"];
-          form.validate(valid => {
-            //验证方法
+    update(state) {
+      //修改栏目
+      let params = this.getParams();
+      if (params.channelId == "") {
+        this.errorMessage("请选择一个栏目");
+        return false;
+      }
+      let form = this.$refs["form"];
+      form.validate(valid => {
+        //验证方法
         if (valid) {
           this.loading = true;
-          axios.post(this.$api.contentUpdate, this.getParams()).then(res => {
+          axios
+            .post(this.$api.contentUpdate, this.getParams())
+            .then(res => {
               if (res.code == "200") {
                 this.successMessage("修改成功");
-                  setTimeout(() => {
-                    this.routerLink("/content/list", "list",this.parentId);
-                  }, 1000);     
+                setTimeout(() => {
+                  this.routerLink("/content/list", "list", this.parentId);
+                }, 1000);
               }
               this.loading = false;
             })
@@ -737,22 +767,20 @@ export default {
           return false;
         }
       });
-     }
+    }
   },
   created() {
-      this.$store.dispatch("setCollapse", true); //收缩状态栏
-       
+    this.$store.dispatch("setCollapse", true); //收缩状态栏
+
     //初始获取数据
     this.getContentInfo(this.params.id);
   },
-  mounted(){
-    
-  }
+  mounted() {}
 };
 </script>
 
 <style scss scoped>
-.w40p{
+.w40p {
   width: 35% !important;
 }
 </style>

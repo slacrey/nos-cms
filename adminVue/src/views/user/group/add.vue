@@ -50,60 +50,59 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/form';
+import listMixins from "@/mixins/form";
 import axios from "axios";
 import va from "@/rules";
 export default {
-    mixins:[listMixins],
+  mixins: [listMixins],
   data() {
     let self = this;
-    let required = va.required('此项必填');
-    let number = va.number('只能输入数字');
+    let required = va.required("此项必填");
+    let number = va.number("只能输入数字");
     return {
-      params: {//只需要业务参数
-      
+      params: {
+        //只需要业务参数
       },
       rules: {
         //校验规则
         name: [required],
-        priority:[required,number],
-        allowPerDay:[required,number],
-        allowMaxFile:[required,number],
-        allowFileSize:[required,number],
-        allowFileTotal:[required,number],
+        priority: [required, number],
+        allowPerDay: [required, number],
+        allowMaxFile: [required, number],
+        allowFileSize: [required, number],
+        allowFileTotal: [required, number]
       },
       memberGroup: [], //业务变量会员组
-       roles:[],
-      };
+      roles: []
+    };
   },
-     methods:{
-         getRoleIds(value){
-              console.log(value);             
-         },
-      getDataInfo(id,https){
-        let api = this.$api; //API地址
-        axios
+  methods: {
+    getRoleIds(value) {
+      //console.log(value);
+    },
+    getDataInfo(id, https) {
+      let api = this.$api; //API地址
+      axios
         .all([
-             axios.post(api.groupGet, {id:id,https:https}), //axios批量发送请求
+          axios.post(api.groupGet, { id: id, https: https }) //axios批量发送请求
         ])
         .then(
-            axios.spread((group)=>{
-                this.dataInfo=group.body;
-                this.$refs["form"].resetFields();
-                this.loading = false;
-            })
+          axios.spread(group => {
+            this.dataInfo = group.body;
+            this.$refs["form"].resetFields();
+            this.loading = false;
+          })
         )
         .catch(err => {
           this.loading = false;
         });
-      },
-        add(state) {  
-             this.dataInfo['steps']=1;    
-             this.saveDataInfo(state,this.$api.groupSave, this.dataInfo, "list");
-        }
-        
+    },
+    add(state) {
+      this.dataInfo["steps"] = 1;
+      this.saveDataInfo(state, this.$api.groupSave, this.dataInfo, "list");
+    }
   },
-  created(){
+  created() {
     //初始获取数据
     this.getDataInfo(this.id);
   }
@@ -111,5 +110,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -133,7 +133,7 @@ export default {
        }, 1000);
     },
     add(state) {
-        console.log(this.$route.query.modelId);
+        //console.log(this.$route.query.modelId);
         this.dataInfo.modelId=this.$route.query.modelId;
         this.saveDataInfo(true,this.$api.itemSave,this.dataInfo, "list");
      if(state){ 

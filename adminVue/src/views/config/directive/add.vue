@@ -93,7 +93,7 @@ export default {
     methods:{
         getAd(value){
             this.ad=value;
-            console.log(value)
+            //console.log(value)
         },
         getDataInfo(id){
             let api = this.$api; //API地址

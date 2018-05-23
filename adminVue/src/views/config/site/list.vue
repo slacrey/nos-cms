@@ -335,7 +335,7 @@ methods:{
         },
       //节点树节点触发触发函数
       nodeClik(data){
-        console.log(data);
+        //console.log(data);
         this.params.querySiteId = data.id;
         if(data.hasChild || data.id == ''){
               this.editTable=false;

@@ -93,7 +93,7 @@ export default {
                     if(id == 0 ){
                         this.rules.password  = [va.required()];
                     }
-                    console.log(this.rules);
+                    //console.log(this.rules);
             }
         }).catch(error=>{
             this.loading = false;

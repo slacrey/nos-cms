@@ -133,200 +133,246 @@ import formMixns from "@/mixins/form";
 export default {
   mixins: [formMixns], //普通表单变量
   data() {
-    let required = va.required('此项必填');
-    let number = va.number('请输入数字');
+    let required = va.required("此项必填");
+    let number = va.number("请输入数字");
     return {
-      dataInfo:{
+      dataInfo: {},
+      dateRange: "",
+      queItems: [],
+      defaultRole: {},
+      ftp_div_show: false,
+      rules: {
+        //校验规则
+        title: [required],
+        repeateHour: [number]
       },
-      dateRange:'',
-      queItems:[],
-      defaultRole:{},
-      ftp_div_show:false,
-      rules: {//校验规则
-        title:[required],
-        repeateHour:[number],
-      },
-      queFlage:false,
-      voteFlage:false,
-      fromFlage:false,
+      queFlage: false,
+      voteFlage: false,
+      fromFlage: false
     };
   },
   methods: {
     //重置排序
-    resetSort(arr){
-      for(let i in arr){
-        arr[i].priority = parseInt(i)+1;
+    resetSort(arr) {
+      for (let i in arr) {
+        arr[i].priority = parseInt(i) + 1;
       }
     },
     //切换题型事件
-    swithcVoteType(index){
+    swithcVoteType(index) {
       let type = this.queItems[index].type;
       let obj = this.queItems[index];
-      if(type == 3){
+      if (type == 3) {
         delete obj.voteItems;
-      }else{
-        obj.voteItems = [{id:'', percent:0,title:'',voteCount:0,priority:1,picture:'', }];
+      } else {
+        obj.voteItems = [
+          {
+            id: "",
+            percent: 0,
+            title: "",
+            voteCount: 0,
+            priority: 1,
+            picture: ""
+          }
+        ];
       }
-      this.$set(this.queItems,obj,index);
+      this.$set(this.queItems, obj, index);
     },
     //单选题或多选题中选项 “删除” 按钮点击事件
-    itemDelete(index,objIndex){
-      this.queItems[index].voteItems.splice(objIndex,1);
+    itemDelete(index, objIndex) {
+      this.queItems[index].voteItems.splice(objIndex, 1);
     },
 
     //单选题或多选题中选项 “上移” 按钮点击事件
-    itemUp(index,objIndex){
-      if(objIndex == 0){
+    itemUp(index, objIndex) {
+      if (objIndex == 0) {
         this.errorMessage("当前选项已经是第一项，无法移动");
         return false;
       }
       //调换数组顺序
-      this.$switchArrOrder(this.queItems[index].voteItems,objIndex);
+      this.$switchArrOrder(this.queItems[index].voteItems, objIndex);
       //重置排序
       this.resetSort(this.queItems[index].voteItems);
     },
     //单选题或多选题中选项 “下移” 按钮点击事件
-    itemDown(index,objIndex){
-      if(this.queItems[index].voteItems.length == (objIndex+1)){
+    itemDown(index, objIndex) {
+      if (this.queItems[index].voteItems.length == objIndex + 1) {
         this.errorMessage("当前选项已经是最后一项，无法移动");
         return false;
       }
       //调换数组顺序
-      this.$switchArrOrder(this.queItems[index].voteItems,objIndex,'down');
+      this.$switchArrOrder(this.queItems[index].voteItems, objIndex, "down");
       //重置排序
       this.resetSort(this.queItems[index].voteItems);
     },
     //单选题或多选题中选项 添加 按钮点击事件
-    itemAdd(index){
-      this.queItems[index].voteItems.push({id:'', percent:0,title:'',voteCount:0,priority:1,picture:'', });
+    itemAdd(index) {
+      this.queItems[index].voteItems.push({
+        id: "",
+        percent: 0,
+        title: "",
+        voteCount: 0,
+        priority: 1,
+        picture: ""
+      });
     },
     //问题 “删除” 按钮点击事件
-    queDelete(index){
-      this.queItems.splice(index,1);
+    queDelete(index) {
+      this.queItems.splice(index, 1);
     },
     //问题 “上移” 按钮点击事件
-    queUp(index){
-      if(index == 0){
+    queUp(index) {
+      if (index == 0) {
         this.errorMessage("当前选项已经是第一项，无法移动");
         return false;
       }
       //调换数组顺序
-      this.$switchArrOrder(this.queItems,index);
+      this.$switchArrOrder(this.queItems, index);
       //重置排序
       this.resetSort(this.queItems);
     },
     //问题 “下移” 按钮点击事件
-    queDown(index){
-      if(this.queItems.length == (index+1)){
+    queDown(index) {
+      if (this.queItems.length == index + 1) {
         this.errorMessage("当前选项已经是最后一项，无法移动");
         return false;
       }
       //调换数组顺序
-      this.$switchArrOrder(this.queItems,index,'down');
+      this.$switchArrOrder(this.queItems, index, "down");
       //重置排序
       this.resetSort(this.queItems);
     },
     //问题 移动至最前 按钮点击事件
-    queTop(index){
-      if(index == 0){
+    queTop(index) {
+      if (index == 0) {
         this.errorMessage("当前选项已经是第一项，无法移动");
         return false;
       }
       //调换数组顺序
       let objs = [];
       objs.push(this.queItems[index]);
-      this.queItems.splice(index,1);
+      this.queItems.splice(index, 1);
       objs = objs.concat(this.queItems);
-      this.queItems = objs ;
+      this.queItems = objs;
       //重置排序
       this.resetSort(this.queItems);
     },
     //问题 移动至最后 按钮点击事件
-    queUnder(index){
-       if(this.queItems.length == (index+1)){
+    queUnder(index) {
+      if (this.queItems.length == index + 1) {
         this.errorMessage("当前选项已经是第后一项，无法移动");
         return false;
       }
       //调换数组顺序
       let obj = this.queItems[index];
-      this.queItems.splice(index,1);
-      this.queItems.push(obj);    
+      this.queItems.splice(index, 1);
+      this.queItems.push(obj);
       //重置排序
       this.resetSort(this.queItems);
     },
     //添加问题点击事件
-    queAdd(type){
-      let que = {id:'',title:'',type:type,priority:1,voteItems:[{id:'',percent:0,title:'', voteCount:0, priority:1,picture:'',} ]}
-      if(type == 3){
-        que = {id:'',title:'', type:3,priority:1};
+    queAdd(type) {
+      let que = {
+        id: "",
+        title: "",
+        type: type,
+        priority: 1,
+        voteItems: [
+          {
+            id: "",
+            percent: 0,
+            title: "",
+            voteCount: 0,
+            priority: 1,
+            picture: ""
+          }
+        ]
+      };
+      if (type == 3) {
+        que = { id: "", title: "", type: 3, priority: 1 };
       }
       this.queItems.push(que);
     },
-    getDataInfo(id) {//重写获取表单数据
+    getDataInfo(id) {
+      //重写获取表单数据
       let api = this.$api; //API地址
-      axios.post(this.$api.voteGet,{id:id})
+      axios
+        .post(this.$api.voteGet, { id: id })
         .then(res => {
           this.loading = false;
-          this.dataInfo = res.body; 
-          if(id == 0){
+          this.dataInfo = res.body;
+          if (id == 0) {
             this.queItems = [];
             this.queAdd(1);
-          }else{
-            if(res.body.subtopics.length > 0){
+          } else {
+            if (res.body.subtopics.length > 0) {
               this.queItems = res.body.subtopics;
-              for(let i in this.queItems){
-                if(this.queItems[i].type != 3 && !this.queItems[i].hasOwnProperty('voteItems')){
-                  this.queItems[i].voteItems =  [{id:'', percent:0,title:'',voteCount:0,priority:1,picture:'', }];
+              for (let i in this.queItems) {
+                if (
+                  this.queItems[i].type != 3 &&
+                  !this.queItems[i].hasOwnProperty("voteItems")
+                ) {
+                  this.queItems[i].voteItems = [
+                    {
+                      id: "",
+                      percent: 0,
+                      title: "",
+                      voteCount: 0,
+                      priority: 1,
+                      picture: ""
+                    }
+                  ];
                 }
               }
             }
-            this.dateRange = [res.body.startTime,res.body.endTime];
+            this.dateRange = [res.body.startTime, res.body.endTime];
           }
-        }).catch(err => {
+        })
+        .catch(err => {
           this.loading = false;
         });
     },
-    getParam(){
-      if(this.dateRange != null && this.dateRange.length > 1){
-      if(this.dateRange.length > 1){
-        if(this.dateRange!=null&&this.dateRange.length > 1){
-          this.dataInfo.startTime = this.dateRange[0];
-          this.dataInfo.endTime = this.dateRange[1];
+    getParam() {
+      if (this.dateRange != null && this.dateRange.length > 1) {
+        if (this.dateRange.length > 1) {
+          if (this.dateRange != null && this.dateRange.length > 1) {
+            this.dataInfo.startTime = this.dateRange[0];
+            this.dataInfo.endTime = this.dateRange[1];
+          }
+          this.dataInfo.source = JSON.stringify(this.queItems);
+          delete this.dataInfo.subtopics;
         }
-      this.dataInfo.source = JSON.stringify(this.queItems);
-      delete this.dataInfo.subtopics;
-      }
       }
     },
-    getPath(path,objIndex,pIndex){
+    getPath(path, objIndex, pIndex) {
       this.queItems[pIndex].voteItems[objIndex].picture = path;
     },
-    valiate(){
+    valiate() {
       this.fromFlage = this.voteFlage = this.queFlage = false;
       let arr = this.queItems;
-      if(arr.length == 0){
+      if (arr.length == 0) {
         this.queFlage = true;
-        return ;
+        return;
       }
-      for(let item of arr){
-        if(item.title == ''){
+      for (let item of arr) {
+        if (item.title == "") {
           this.fromFlage = true;
-          return ;
+          return;
         }
-        if(item.type != 3){
-          if(item.voteItems == ''){
+        if (item.type != 3) {
+          if (item.voteItems == "") {
             this.voteFlage = true;
-            return ;
+            return;
           }
-          if(item.voteItems.length == 0){
+          if (item.voteItems.length == 0) {
             this.voteItems = true;
-            return ;
+            return;
           }
           let arr1 = item.voteItems;
-          for(let item1 of arr1){
-            if(item1.title == ''){
+          for (let item1 of arr1) {
+            if (item1.title == "") {
               this.fromFlage = true;
-              return ;
+              return;
             }
           }
         }
@@ -334,39 +380,39 @@ export default {
     },
     update(state) {
       this.valiate();
-      if(this.queFlage){
-        this.errorMessage('调查问卷至少添加一项题目，请确认!');
+      if (this.queFlage) {
+        this.errorMessage("调查问卷至少添加一项题目，请确认!");
         return false;
       }
-      if(this.voteFlage){
-        this.errorMessage('单选题或多选题至少添加一项选项，请确认!');
+      if (this.voteFlage) {
+        this.errorMessage("单选题或多选题至少添加一项选项，请确认!");
         return false;
       }
-      if(this.fromFlage){
-        this.errorMessage('题目或题目选项未填写，请确认!');
+      if (this.fromFlage) {
+        this.errorMessage("题目或题目选项未填写，请确认!");
         return false;
       }
       this.getParam();
-      console.log(this.$api.voteUpdate);
+      //console.log(this.$api.voteUpdate);
       this.updateDataInfo(this.$api.voteUpdate, this.dataInfo, "list");
     },
     add(state) {
       this.valiate();
-      if(this.queFlage){
-        this.errorMessage('调查问卷至少添加一项题目，请确认!');
+      if (this.queFlage) {
+        this.errorMessage("调查问卷至少添加一项题目，请确认!");
         return false;
       }
-      if(this.voteFlage){
-        this.errorMessage('单选题或多选题至少添加一项选项，请确认!');
+      if (this.voteFlage) {
+        this.errorMessage("单选题或多选题至少添加一项选项，请确认!");
         return false;
       }
-      if(this.fromFlage){
-        this.errorMessage('题目或题目选项未填写，请确认!');
+      if (this.fromFlage) {
+        this.errorMessage("题目或题目选项未填写，请确认!");
         return false;
       }
       this.getParam();
-      this.saveDataInfo(state,this.$api.voteSave, this.dataInfo, "list");
-    },
+      this.saveDataInfo(state, this.$api.voteSave, this.dataInfo, "list");
+    }
   },
   created() {
     //初始获取数据
@@ -376,80 +422,79 @@ export default {
 </script>
 <style >
 .que-conent,
-.btn-add-group{
+.btn-add-group {
   padding: 10px;
   box-sizing: border-box;
-  background-color: #FBFDFF;
-  border: 1px dashed #E8EFF4;
-  margin-top:10px;
+  background-color: #fbfdff;
+  border: 1px dashed #e8eff4;
+  margin-top: 10px;
 }
-.el-row .el-col .cms-upload .cms-upload-box ,
+.el-row .el-col .cms-upload .cms-upload-box,
 .el-row .el-col .cms-upload .avatar-uploader-icon,
 .el-row .el-col .cms-upload .cms-upload-box .cms-progress,
-.el-row .el-col .cms-upload .cms-upload-box .el-progress-circle{
+.el-row .el-col .cms-upload .cms-upload-box .el-progress-circle {
   width: 60px !important;
   height: 60px !important;
   line-height: 60px;
 }
-.el-row .el-col .cms-upload .cms-upload-box .cms-zoom-icon{
+.el-row .el-col .cms-upload .cms-upload-box .cms-zoom-icon {
   width: 50px;
-  left:50%;
+  left: 50%;
   margin-left: -20px;
   margin-top: -20px;
   font-size: 13px;
 }
-.el-row .el-col .cms-upload .cms-upload-box .cms-zoom-font{
+.el-row .el-col .cms-upload .cms-upload-box .cms-zoom-font {
   font-size: 10px;
 }
-.el-row .el-col .cms-upload .cms-upload-box .cms-img-bottom{
+.el-row .el-col .cms-upload .cms-upload-box .cms-img-bottom {
   height: 20px;
   line-height: 20px;
 }
-.que-item-title{
+.que-item-title {
   height: 20px;
   line-height: 20px;
 }
-.que-item{
+.que-item {
   height: 70px;
   line-height: 70px;
 }
-.que-item .el-button{
+.que-item .el-button {
   padding: 0px 0px;
   min-width: 0px;
   border: 0px solid #dcdfe6;
-  color:#9DBED7;
+  color: #9dbed7;
 }
 .que-item .el-button:hover,
-.que-item-btn .el-button:hover{
-  background-color: #FFFFFF;
+.que-item-btn .el-button:hover {
+  background-color: #ffffff;
 }
 .que-item .el-button:focus,
 .que-item-btn .el-button:focus {
-  background-color: #FFFFFF;
-} 
+  background-color: #ffffff;
+}
 .que-item .el-button:active,
 .que-item-btn .el-button:active {
-  background-color: #FFFFFF;
-} 
-.que-item .el-button .iconfont{
+  background-color: #ffffff;
+}
+.que-item .el-button .iconfont {
   font-size: 30px;
 }
-.que-item-btn .el-button{
+.que-item-btn .el-button {
   margin: 20px 0px;
   padding: 7px 10px;
   min-width: 0px;
-  border: 1px solid #FFCBA1;
-  color:#FFCBA1;
+  border: 1px solid #ffcba1;
+  color: #ffcba1;
 }
 .que-item-btn .el-button .iconfont {
   font-size: 12px;
   font-weight: 100;
 }
-.que-item .el-form-item{
-  border:0px;
+.que-item .el-form-item {
+  border: 0px;
 }
 .el-form-item__error {
-    left: 84%;
+  left: 84%;
 }
-
 </style>

@@ -16,43 +16,45 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/list'
+import listMixins from "@/mixins/list";
 export default {
-    mixins:[listMixins],
+  mixins: [listMixins],
   data() {
     return {
-      params: {//只需要业务参数
-          
+      params: {
+        //只需要业务参数
       }
     };
-  },methods:{
-       getTableData(url) {//获取表格数据
-            this.loading = true;
-            this.$http
-                .post(url,{tablename:this.$route.query.id})
-                .then(res => {        
-                    this.tableData = res.body;                  
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.loading = false;
-                });
-       },
   },
-  created(){  
-        console.log(this.$route.query.type)
-          if(this.$route.query.type==='mysql'){
-                this.getTableData(this.$api.mysqlDataListfields);
-          }
-          if(this.$route.query.type==='oracle'){
-                this.getTableData(this.$api.oracleDataListfields);
-          }
-          if(this.$route.query.type==='sqlserver'){
-                this.getTableData(this.$api.sqlserverDataListfields);
-          }
-          if(this.$route.query.type==='db2'){
-                this.getTableData(this.$api.db2DataListfields);
-          }
+  methods: {
+    getTableData(url) {
+      //获取表格数据
+      this.loading = true;
+      this.$http
+        .post(url, { tablename: this.$route.query.id })
+        .then(res => {
+          this.tableData = res.body;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.loading = false;
+        });
+    }
+  },
+  created() {
+    //console.log(this.$route.query.type)
+    if (this.$route.query.type === "mysql") {
+      this.getTableData(this.$api.mysqlDataListfields);
+    }
+    if (this.$route.query.type === "oracle") {
+      this.getTableData(this.$api.oracleDataListfields);
+    }
+    if (this.$route.query.type === "sqlserver") {
+      this.getTableData(this.$api.sqlserverDataListfields);
+    }
+    if (this.$route.query.type === "db2") {
+      this.getTableData(this.$api.db2DataListfields);
+    }
   }
 };
 </script>

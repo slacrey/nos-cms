@@ -11,3 +11,4 @@ target
 .idea
 
 adminVue/node_module
+adminVue/dist

@@ -92,111 +92,115 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/form';
+import listMixins from "@/mixins/form";
 import axios from "axios";
 import va from "@/rules";
 export default {
-    mixins:[listMixins],
+  mixins: [listMixins],
   data() {
     let self = this;
-    let required = va.required('该项必填');
+    let required = va.required("该项必填");
     let number = va.number();
     let double = va.double();
 
     return {
-      params: {//只需要业务参数
-      
+      params: {
+        //只需要业务参数
       },
       rules: {
         //校验规则
-        minDrawAmount:[number],
-        rewardMin:[double],
-        rewardMax:[double],
-        chargeRatio:[double],
-     
+        minDrawAmount: [number],
+        rewardMin: [double],
+        rewardMax: [double],
+        chargeRatio: [double]
       },
-      map:[],
+      map: []
     };
   },
-     methods:{
-         add(){
-             let obj={
-                 key:'',
-                 value:''
-             }
-           this.map.push(obj);
-         },
-         del(index){
-              this.map.splice(index,1)
-         },
-        getDataInfo(){
-        let api = this.$api; //API地址
-            axios
-            .all([
-                axios.post(api.configContentChargeGet), //axios批量发送请求
-            ])
-            .then(
-                axios.spread((content)=>{
-                    this.dataInfo=content.body;
-                    this.dataInfo.alipayPublicKey='';
-                    this.dataInfo.alipayPrivateKey='';
-                    this.dataInfo.alipayKey='';
-                    this.dataInfo.weixinSecret='';
-                     this.dataInfo.weixinPassword='';
-                     this.dataInfo.transferApiPassword=''; 
-                     this.dataInfo.payTransferPassword='';
-                    this.map=content.body.fixMap;
-                    this.$refs["form"].resetFields();
-                    this.loading = false;
-                })                                
-            )
-            .catch(err => {
+  methods: {
+    add() {
+      let obj = {
+        key: "",
+        value: ""
+      };
+      this.map.push(obj);
+    },
+    del(index) {
+      this.map.splice(index, 1);
+    },
+    getDataInfo() {
+      let api = this.$api; //API地址
+      axios
+        .all([
+          axios.post(api.configContentChargeGet) //axios批量发送请求
+        ])
+        .then(
+          axios.spread(content => {
+            this.dataInfo = content.body;
+            this.dataInfo.alipayPublicKey = "";
+            this.dataInfo.alipayPrivateKey = "";
+            this.dataInfo.alipayKey = "";
+            this.dataInfo.weixinSecret = "";
+            this.dataInfo.weixinPassword = "";
+            this.dataInfo.transferApiPassword = "";
+            this.dataInfo.payTransferPassword = "";
+            this.map = content.body.fixMap;
+            this.$refs["form"].resetFields();
             this.loading = false;
-            });
-        },
-         update() {         
-             for(let i in this.dataInfo.fixMap){
-                let va='attr_reward_fix_'+this.dataInfo.fixMap[i].value;
-                 this.dataInfo[va]=this.dataInfo.fixMap[i].value;
-                 console.log(this.dataInfo)
-             };       
-            for(let i in this.dataInfo){
-                if((typeof this.dataInfo[i])=='object'){
-                    delete this.dataInfo[i]
-                }
-             }      
-             this.updateDataInfo(this.$api.configContentChargeUpdate, this.dataInfo, "");
-          
-        },
-         updateDataInfo(url, params, backUrl) {
-            let form = this.$refs['form'];
-            form.validate((valid) => {//验证方法
-                if (valid) {
-                    this.loading = true;
-                    axios.post(url, params)
-                        .then(res => {
-                            this.loading = false;
-                            if (res.code == "200") {
-                                this.successMessage('修改成功');
-                                 this.getDataInfo(this.id);
-                                if(backUrl==''){
-                                    return false;
-                                }else{
-                                    setTimeout(() => {
-                                        this.routerLink(backUrl);
-                                    }, 1000);
-                                }
-                                
-                            }
-                        }).catch(error => { this.loading = false; })
+          })
+        )
+        .catch(err => {
+          this.loading = false;
+        });
+    },
+    update() {
+      for (let i in this.dataInfo.fixMap) {
+        let va = "attr_reward_fix_" + this.dataInfo.fixMap[i].value;
+        this.dataInfo[va] = this.dataInfo.fixMap[i].value;
+      }
+      for (let i in this.dataInfo) {
+        if (typeof this.dataInfo[i] == "object") {
+          delete this.dataInfo[i];
+        }
+      }
+      this.updateDataInfo(
+        this.$api.configContentChargeUpdate,
+        this.dataInfo,
+        ""
+      );
+    },
+    updateDataInfo(url, params, backUrl) {
+      let form = this.$refs["form"];
+      form.validate(valid => {
+        //验证方法
+        if (valid) {
+          this.loading = true;
+          axios
+            .post(url, params)
+            .then(res => {
+              this.loading = false;
+              if (res.code == "200") {
+                this.successMessage("修改成功");
+                this.getDataInfo(this.id);
+                if (backUrl == "") {
+                  return false;
                 } else {
-                    return false
+                  setTimeout(() => {
+                    this.routerLink(backUrl);
+                  }, 1000);
                 }
+              }
             })
-        },
-        
+            .catch(error => {
+              this.loading = false;
+            });
+        } else {
+          return false;
+        }
+      });
+    }
   },
-  created(){
+  created() {
     //初始获取数据
     this.getDataInfo(this.id);
   }
@@ -204,5 +208,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -29,57 +29,55 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/form';
-import listMixin from '@/mixins/list';
+import listMixins from "@/mixins/form";
+import listMixin from "@/mixins/list";
 import va from "@/rules";
 export default {
-    mixins:[listMixins,listMixin],
+  mixins: [listMixins, listMixin],
   data() {
     let self = this;
-    let required = va.required();         
-    return {   
-      dbType:'', 
-      url:{
-         url1:'',//重命名路径
-
+    let required = va.required();
+    return {
+      dbType: "",
+      url: {
+        url1: "" //重命名路径
       },
-      dataInfo:{
-          origName:this.$route.query.id,
-          distName:this.$route.query.id,
+      dataInfo: {
+        origName: this.$route.query.id,
+        distName: this.$route.query.id
       },
       rules: {
-         distName:[required]
+        distName: [required]
       },
-      params: {//只需要业务参数
-          
+      params: {
+        //只需要业务参数
       }
     };
-  },methods:{
-         update() {  
-             console.log('213')  
-             this.updateDataInfo(this.url.url1, this.dataInfo, "list");
-         }
   },
-  created(){
-      this.$http.post(this.$api.frameGetDB).then(res=>{
-          this.dbType=res.body.db;
-            //根据不同库分配不同数据库路径
-            if(this.dbType==='mysql'){
-                 this.url.url1=this.$api.mysqlDataRename;
-            }
-            if(this.dbType==='oracle'){
-                 this.url.url1=this.$api.oracleDataRename;
-            }
-            if(this.dbType==='sqlserver'){
-                 this.url.url1=this.$api.sqlserverDataRename;
-            }
-            if(this.dbType==='db2'){
-                 this.url.url1=this.$api.db2DataRename;
-            }
-
-
-      });
-      this.loading=false;
+  methods: {
+    update() {
+      //console.log('213')
+      this.updateDataInfo(this.url.url1, this.dataInfo, "list");
+    }
+  },
+  created() {
+    this.$http.post(this.$api.frameGetDB).then(res => {
+      this.dbType = res.body.db;
+      //根据不同库分配不同数据库路径
+      if (this.dbType === "mysql") {
+        this.url.url1 = this.$api.mysqlDataRename;
+      }
+      if (this.dbType === "oracle") {
+        this.url.url1 = this.$api.oracleDataRename;
+      }
+      if (this.dbType === "sqlserver") {
+        this.url.url1 = this.$api.sqlserverDataRename;
+      }
+      if (this.dbType === "db2") {
+        this.url.url1 = this.$api.db2DataRename;
+      }
+    });
+    this.loading = false;
   }
 };
 </script>

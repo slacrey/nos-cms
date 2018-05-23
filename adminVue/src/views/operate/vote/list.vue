@@ -61,66 +61,77 @@
   </section>
 </template>
 <script>
-import listMixins from '@/mixins/list'
+import listMixins from "@/mixins/list";
 import axios from "axios";
 export default {
-  mixins:[listMixins],
-  data(){
+  mixins: [listMixins],
+  data() {
     return {
-      params:{
+      params: {
         pageNo: 1,
-        pageSize:10,
-        voteStatus:'',
+        pageSize: 10,
+        voteStatus: ""
       },
-      defaultId:'',
-    }
+      defaultId: ""
+    };
   },
-  methods:{
-    saveContent(){
-      console.log(this.defaultId);
+  methods: {
+    saveContent() {
+      //console.log(this.defaultId);
       let disabled = [];
       let ids = [];
-      for(let item of this.tableData){
+      for (let item of this.tableData) {
         disabled.push(item.disabled);
         ids.push(item.id);
       }
-      let obj = {ids:ids.join(','),disableds:disabled.join(','),defId:this.defaultId};
+      let obj = {
+        ids: ids.join(","),
+        disableds: disabled.join(","),
+        defId: this.defaultId
+      };
       this.loading = true;
-      axios.post(this.$api.voteSaveContent,obj).then(res=>{
-        this.loading = false;
-        if(res.code == '200'){
-          this.successMessage('保存成功');
-        }
-      }).catch(err=>{
-        this.loading = false;
-      })
+      axios
+        .post(this.$api.voteSaveContent, obj)
+        .then(res => {
+          this.loading = false;
+          if (res.code == "200") {
+            this.successMessage("保存成功");
+          }
+        })
+        .catch(err => {
+          this.loading = false;
+        });
     },
-    getTableData(params) {//获取表格数据   
+    getTableData(params) {
+      //获取表格数据
       this.loading = true;
-      axios.post(this.listUrl, params).then(res => {
-        this.loading = false;
-        if(res.code=='200'){
-          this.total = res.totalCount;
-          this.tableData = res.body;
-          for(let item of this.tableData){
-            if(item.def){
-              this.defaultId =  item.id;
-              break;
+      axios
+        .post(this.listUrl, params)
+        .then(res => {
+          this.loading = false;
+          if (res.code == "200") {
+            this.total = res.totalCount;
+            this.tableData = res.body;
+            for (let item of this.tableData) {
+              if (item.def) {
+                this.defaultId = item.id;
+                break;
+              }
             }
           }
-        }       
-      }).catch(error => {
-        this.loading = false;
-      });
-    },
+        })
+        .catch(error => {
+          this.loading = false;
+        });
+    }
   },
-  created(){
-    this.initTableData(this.$api.voteList,this.params);
+  created() {
+    this.initTableData(this.$api.voteList, this.params);
   }
 };
 </script>
 <style type="text/css">
-  .voteview{
-    color: #4687B8;
-  }
+.voteview {
+  color: #4687b8;
+}
 </style>

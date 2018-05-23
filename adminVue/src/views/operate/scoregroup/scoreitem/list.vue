@@ -46,27 +46,27 @@
 </template>
 
 <script>
-import listMixin from '@/mixins/form';
-import listMixins from '@/mixins/list';
+import listMixin from "@/mixins/form";
+import listMixins from "@/mixins/list";
 export default {
-    mixins:[listMixins,listMixin],
+  mixins: [listMixins, listMixin],
   data() {
     return {
-      params: {//只需要业务参数
-        groupId:'',
-        pageNo:'',
-        pageSize:'',
+      params: {
+        //只需要业务参数
+        groupId: "",
+        pageNo: "",
+        pageSize: ""
       }
     };
   },
-  created(){
-      console.log(this.id)
-     this.params.groupId=this.id;
-     this.initTableData(this.$api.scoreitemList,this.params);
+  created() {
+    // console.log(this.id)
+    this.params.groupId = this.id;
+    this.initTableData(this.$api.scoreitemList, this.params);
   }
 };
 </script>
     
 <style>
-
 </style>

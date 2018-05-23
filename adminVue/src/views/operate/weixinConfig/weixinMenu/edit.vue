@@ -39,56 +39,57 @@
 </template>
 
 <script>
-import listMixins from '@/mixins/form';
+import listMixins from "@/mixins/form";
 import axios from "axios";
 import va from "@/rules";
 export default {
-    mixins:[listMixins],
+  mixins: [listMixins],
   data() {
     let self = this;
-    let required = va.required('该项必填');
+    let required = va.required("该项必填");
     return {
-      params: {//只需要业务参数
-
+      params: {
+        //只需要业务参数
       },
       rules: {
         //校验规则
-        name:[required],
-        type:[required],
-        key:[required]
-        
+        name: [required],
+        type: [required],
+        key: [required]
       },
-      checkRes:false,
+      checkRes: false
     };
   },
-     methods:{   
-      getDataInfo(id){
-        let api = this.$api; //API地址
-        axios.all([
-             axios.post(api.weixinMenuGet, {id:id}), //axios批量发送请求
-        ]).then(
-            axios.spread((type)=>{
-                this.dataInfo=type.body;
-                this.$refs["form"].resetFields();
-                this.loading = false;
-                if(this.id == 0){
-                    this.dataInfo.type = 'click';
-                  console.log(this.dataInfo);
-                }
-            })
+  methods: {
+    getDataInfo(id) {
+      let api = this.$api; //API地址
+      axios
+        .all([
+          axios.post(api.weixinMenuGet, { id: id }) //axios批量发送请求
+        ])
+        .then(
+          axios.spread(type => {
+            this.dataInfo = type.body;
+            this.$refs["form"].resetFields();
+            this.loading = false;
+            if (this.id == 0) {
+              this.dataInfo.type = "click";
+              //console.log(this.dataInfo);
+            }
+          })
         )
         .catch(err => {
           this.loading = false;
         });
-      },
-        update() {      
-            this.updateDataInfo(this.$api.weixinMenuUpdate, this.dataInfo, "list");
-        },
-        add(state) {             
-            this.saveDataInfo(state,this.$api.weixinMenuSave, this.dataInfo, "list");       
-        }
+    },
+    update() {
+      this.updateDataInfo(this.$api.weixinMenuUpdate, this.dataInfo, "list");
+    },
+    add(state) {
+      this.saveDataInfo(state, this.$api.weixinMenuSave, this.dataInfo, "list");
+    }
   },
-  created(){
+  created() {
     //初始获取数据
     this.getDataInfo(this.id);
   }
@@ -96,5 +97,4 @@ export default {
 </script>
 
 <style>
-
 </style>

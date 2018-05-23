@@ -139,7 +139,7 @@
          <!-- 系统信息 -->
          <div class="systemInfo">
            <span>
-              当前系统版本:&nbsp;&nbsp;jeecms v9.4   
+              当前系统版本:&nbsp;&nbsp;seecms v2 
            </span>
           <span>
               上次登录时间: &nbsp;&nbsp;{{page.pageNum.lastLoginTime}}
@@ -584,7 +584,6 @@ export default {
     this.chartLine = echarts.init(document.getElementById("chartLine"));           
     this.chartLine.setOption(this.chartLineOptions);        
     window.addEventListener('resize', this.createChart);
-    console.log('v9.4');
   },
  
 };

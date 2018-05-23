@@ -8,10 +8,12 @@
 
 <script>
 export default {
-     name:'app-main',
-}
+  name: "app-main",
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style scoped >
-
 </style>

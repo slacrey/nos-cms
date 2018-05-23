@@ -57,7 +57,7 @@ export default {
            this.loading = true;
            let a=this.parentId[this.parentId.length-1];
            this.params.channelId=a;
-           console.log(this.params);
+           //console.log(this.params);
            axios.post(this.$api.staticContent,this.params).then(res=>{
                  if(res.code==='200'){
                       this.loading = false;   

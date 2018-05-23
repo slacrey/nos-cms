@@ -4,7 +4,9 @@
     <div class="login-inner-box">
        <canvas id="root" width="1000" height="560" class="art-canvas"></canvas>
            <div class="login-form">
-               <img src="./../assets/images/login-logo.png" alt="" class="login-img">
+             <div class="login-img">
+               Seecms
+             </div>
                   <div class="val user-after">
                     <input type="text" autocomplete="off" placeholder="用户名"
                        v-model="params.userName"
@@ -27,8 +29,7 @@
            
     </div>
    <div class="fixed-bar">
-       <p>ICP备案号：赣ICP备13005266号</p>
-       <p>Powered by JeeCms Copyright © 2007-2017 www.jeecms.com, All Rights Reserved</p>
+       <p>谢谢支持</p>
    </div>
   </div> 
 </template>

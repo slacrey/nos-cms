@@ -236,7 +236,7 @@ CREATE TABLE `jc_api_account` (
 # Dumping data for table jc_api_account
 #
 
-INSERT INTO `jc_api_account` (`id`,`app_id`,`app_key`,`aes_key`,`disabled`,`iv_key`,`is_admin`,`limit_single_device`) VALUES (1,'1580387213331704','Sd6qkHm9o4LaVluYRX5pUFyNuiu2a8oi','S9u978Q31NGPGc5H',0,'X83yESM9iShLxfwS',1,0);
+INSERT INTO `jc_api_account` (`id`,`app_id`,`app_key`,`aes_key`,`disabled`,`iv_key`,`is_admin`,`limit_single_device`) VALUES (1,'3452032801248943','fwUbZOa6Dl6pcTt7imS7ZNLPDEKNPZYi','mrDqopO3FhAV6jkH',0,'DqtrEqFGYj6Whfii',1,0);
 
 #
 # Source for table jc_api_info
