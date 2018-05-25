@@ -372,7 +372,7 @@ CREATE TABLE `jc_api_user_login` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `session_key` varchar(100) DEFAULT '' COMMENT 'sesssionKey',
   `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
-  `login_time` timestamp NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '登陆时间',
+  `login_time` datetime NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '登陆时间',
   `login_count` int(11) NOT NULL DEFAULT '0' COMMENT '登陆次数',
   `active_time` timestamp NOT NULL  COMMENT '最后活跃时间',
   PRIMARY KEY (`id`)
@@ -4949,7 +4949,7 @@ CREATE TABLE `jc_site_access_pages` (
   `access_pages_id` int(11) NOT NULL AUTO_INCREMENT,
   `access_page` varchar(255) NOT NULL COMMENT '访问页面',
   `session_id` varchar(32) NOT NULL,
-  `access_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '访问日期',
+  `access_date` date NOT NULL COMMENT '访问日期',
   `access_time` time NOT NULL COMMENT '访问时间',
   `visit_second` int(11) NOT NULL DEFAULT '0' COMMENT '停留时长（秒）',
   `page_index` int(11) NOT NULL DEFAULT '0' COMMENT '用户访问页面的索引',
